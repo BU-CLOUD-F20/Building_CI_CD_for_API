@@ -26,9 +26,11 @@ This section discusses the minimum acceptance criteria at the end of the project
 
 **6. Release Planning:**
 
-Release planning section describes how the project will deliver incremental sets of features and functions in a series of releases to completion. Identification of user stories associated with iterations that will ease/guide sprint planning sessions is encouraged. Higher level details for the first iteration is expected.
-
-Release 1 (Deadline: Sept. 27, Demo: Oct. 1)Find dictionary library for shortened linksWrite algorithm that convert link to shortened formRESTful API codePost route to convert URL to shortened linkGet route to access original URL via shortened linkDelete route to delete shortened link or expired dataPut route to change URL to different shortened linkCI/CD pipelineMake final decisions on technologies and implement them with codeBack end testing on API codeTest each API route, write different test casesDecide on a NoSQL database (leaning toward MongoDB)
+Release 1 (Deadline: Sept. 27, Demo: Oct. 1)
+* Find dictionary library for shortened links
+* Write algorithm that convert link to shortened form
+- RESTful API codePost route to convert URL to shortened link
+Get route to access original URL via shortened linkDelete route to delete shortened link or expired dataPut route to change URL to different shortened linkCI/CD pipelineMake final decisions on technologies and implement them with codeBack end testing on API codeTest each API route, write different test casesDecide on a NoSQL database (leaning toward MongoDB)
 
 Release 2 (Deadline: Oct. 11, Demo: Oct. 15)Functional UI interface for core featuresFront end tests and additional back end testing
 
