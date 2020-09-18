@@ -72,7 +72,7 @@ In the diagram, when developers make any changes in the code and the commits are
 
 The client is the website that allows users to interact with service. It sends API requests to the server. To shorten a link, the client sends a POST request containing the original URL to the server. The server runs an algorithm to shorten the link, stores data related to the link in the database, and sends back the shortened link. When a user enters a shortened link on a browser, a GET request is sent to the server, to send back the original link by searching in the database, which directs the user to the website. In this case, a browser is also a client in this diagram. A user is also allowed to delete the shortened link on the host website, or the server deletes the link once the expiration date is reached.Design decisions for the architecture were made with compatibility in mind. After consulting the possible choices for the architecture from our mentors and some of our friends, some of our team members researched and scanned through each documentation and reported back to the group. From there, we checked which element with which element is compatible, and made a decision. Difficulty of developing is another component we had in mind while making decisions for the architecture, we wanted to keep things simple so went with a simple Flask API on Python with some UI libraries we can potentially use for the frontend.
 
-**5. Acceptance criteria**
+## 5. Acceptance Criteria
 
 Minimum Acceptance criteria is a cloud service that consists of a simple UI that communicates with URL shortener API to provide a shortened URL to the user. Stretch goals are:
 - Provide user with link management, analytics, and account creation
