@@ -61,22 +61,36 @@ One example of an expert API user is Andy, a web developer working on his SaaS s
 
 This section provides a high-level outline of the solution.Global Architectural Structure Of the Project:This section provides a high-level architecture or a conceptual diagram showing the scope of the solution. If wireframes or visuals have already been done, this section could also be used to show how the intended solution will look. This section also provides a walkthrough explanation of the architectural structure.Design Implications and Discussion:This section discusses the implications and reasons of the design decisions made during the global architecture design.The system components of the architectural design is as follows:Python Flask backend for providing REST APIs that allow frontend to consumeReact front end for service’s user interfaceNginx load balancer, among client-application, application-database, application-cacheGitHub Actions for CI/CD pipelineUbuntu docker image for development environmentOpenShift on MOC for hosting[put diagram here]In the diagram, when developers make any changes in the code and the commits are pushed to GitHub, GitHub Actions triggers the CI workflow. It builds the project with the changed contents, runs integration and unit tests, and then provides results of the tests in the pull request. If the changes introduce errors, the developer can go back to debugging. If there are no errors from the tests, the change is ready to be reviewed by another team member. When the team member approves the changes, from here it is the CD workflow. The changes get reflected to the staging server, then if there are no problems here too, the changes will be deployed to the production server hosted on MOC using OpenShift. This server is running Nginx, load balancing the server’s resource availability and efficiency.The client is the website that allows users to interact with service. It sends API requests to the server. To shorten a link, the client sends a POST request containing the original URL to the server. The server runs an algorithm to shorten the link, stores data related to the link in the database, and sends back the shortened link. When a user enters a shortened link on a browser, a GET request is sent to the server, to send back the original link by searching in the database, which directs the user to the website. In this case, a browser is also a client in this diagram. A user is also allowed to delete the shortened link on the host website, or the server deletes the link once the expiration date is reached.Design decisions for the architecture were made with compatibility in mind. After consulting the possible choices for the architecture from our mentors and some of our friends, some of our team members researched and scanned through each documentation and reported back to the group. From there, we checked which element with which element is compatible, and made a decision. Difficulty of developing is another component we had in mind while making decisions for the architecture, we wanted to keep things simple so went with a simple Flask API on Python with some UI libraries we can potentially use for the frontend.
 
-## 5. Acceptance Criteria
-
-This section discusses the minimum acceptance criteria at the end of the project and stretch goals.https://www.altexsoft.com/blog/business/acceptance-criteria-purposes-formats-and-best-practices/https://www.wikiwand.com/en/Acceptance_testingMinimum acceptance criteria is a cloud service that consists of a simple UI that communicates with URL shortener API to provide a shortened URL to the user. Stretch goals are:Provide user with link management, analytics, and account creationAllow user to create a custom short linkExtend the service into a browser plugin or bookmarklet
+**5. Acceptance criteria**
+Minimum Acceptance criteria is a cloud service that consists of a simple UI that communicates with URL shortener API to provide a shortened URL to the user. Stretch goals are:
+- Provide user with link management, analytics, and account creation
+- Allow user to create a custom short link
+- Extend the service into a browser plugin or bookmarklet
 
 ## 6. Release Planning:
 
 Release 1 (Deadline: Sept. 27, Demo: Oct. 1)
-* Find dictionary library for shortened links
-* Write algorithm that convert link to shortened form
-- RESTful API codePost route to convert URL to shortened link
-Get route to access original URL via shortened linkDelete route to delete shortened link or expired dataPut route to change URL to different shortened linkCI/CD pipelineMake final decisions on technologies and implement them with codeBack end testing on API codeTest each API route, write different test casesDecide on a NoSQL database (leaning toward MongoDB)
+- Find dictionary library for shortened links
+- Write algorithm that convert link to shortened form
+- RESTful API code
+  - Post route to convert URL to shortened link
+  - Get route to access original URL via shortened link
+  - Delete route to delete shortened link or expired data
+  - Put route to change URL to different shortened link
+- CI/CD pipeline
+  - Make final decisions on technologies and implement them with code
+- Back end testing on API codeTest each API route, write different test cases
+- Decide on a NoSQL database (leaning toward MongoDB)
 
-Release 2 (Deadline: Oct. 11, Demo: Oct. 15)Functional UI interface for core featuresFront end tests and additional back end testing
+Release 2 (Deadline: Oct. 11, Demo: Oct. 15)
+- Functional UI interface for core features
+- Front end tests and additional back end testing
 
-Release 3 (Deadline: Oct. 25, Demo: Oct. 29)Add cache for frequently used links + unit testing
+Release 3 (Deadline: Oct. 25, Demo: Oct. 29)
+- Add cache for frequently used links + unit testing
 
-Release 4 (Deadline: Nov. 8, Demo: Nov. 12)Attempt to add Out-of-Scope features + integration testing
+Release 4 (Deadline: Nov. 8, Demo: Nov. 12)
+- Attempt to add Out-of-Scope features + integration testing
 
-Release 5 (Deadline: Nov. 29, Demo: Dec. 3)Ensure every part of project is functional, stable, and verified
+Release 5 (Deadline: Nov. 29, Demo: Dec. 3)
+- Ensure every part of project is functional, stable, and verified
