@@ -1,8 +1,8 @@
 # **Building CI/CD for API Project Proposal**
 
-\######EC528
+###### EC528
 
-\######Panat Taranat, Yan Chen, Mella Liang, Peter Wang, Kaito Yamagishi
+###### Panat Taranat, Yan Chen, Mella Liang, Peter Wang, Kaito Yamagishi
 
 
 
