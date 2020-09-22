@@ -7,7 +7,28 @@ from flask_restful import Resource
 import string
 
 
+class ShortLink(Resource):
+    # redirect to
+    def get(self, link):
+        shortLink = link
+        # TODO
+        # get original URL from DB
+        exist = True  # check from DB if the short link exist in DB
+        if exist:
+            return redirect('https://www.youtube.com/')
+            # return {
+            # 'longLink': 'original url',
+            # }
+        return {
+            'message': "The short link doesn't exist.",
+            'status': 404,
+        },
+
+
 class LongLink(Resource):
+    def get(self):
+        return "Long Link"
+
     def post(self):
         json_data = request.get_json(force=True)
         # json data looks like this: (to be modified)

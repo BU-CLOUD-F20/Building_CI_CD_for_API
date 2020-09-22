@@ -1,5 +1,24 @@
-from app import app
+# Import Flask
+from flask import Flask
+from flask_restful import Api
+
+# Import DB
+from database.db import initialize_db
+from resources.routes import initialize_routes
+
+# Initialization
+app = Flask(__name__)
+api = Api(app, catch_all_404s=True)
+
+# Config
+app.config['MONGODB_SETTINGS'] = {
+    'host': 'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
+}
+
+initialize_db(app)
+initialize_routes(api)
+
+app.run()
 
 if __name__ == "__main__":
-    # app.run(debug=True, host="0.0.0.0", port=5000)
-    app.run(debug=True) # virtual (loop) address eg: 127.0.0.1
+    app.run(debug=True, host="0.0.0.0", port=5000)
