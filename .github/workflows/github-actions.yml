@@ -1,6 +1,6 @@
 on: [push]
 jobs:
-  - check-bats-version:
+  check-bats-version:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -8,7 +8,7 @@ jobs:
       - run: npm install -g bats
       - run: bats -v
 
-  - autopep8:
+  autopep8:
     # Check if the PR is not raised by this workflow and is not from a fork
     if: startsWith(github.head_ref, 'autopep8-patches') == false && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
