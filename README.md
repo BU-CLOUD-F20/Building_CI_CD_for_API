@@ -69,7 +69,7 @@ The system components of the architectural design is as follows:
 - Ubuntu docker image for development environment
 - OpenShift on MOC for hosting
 
-<img src="diagram.png">
+<img src="assets/diagram.png">
 
 In the diagram, when developers make any changes in the code and the commits are pushed to GitHub, GitHub Actions triggers the CI workflow. It builds the project with the changed contents, runs integration and unit tests, and then provides results of the tests in the pull request. If the changes introduce errors, the developer can go back to debugging. If there are no errors from the tests, the change is ready to be reviewed by another team member. When the team member approves the changes, from here it is the CD workflow. The changes get reflected to the staging server, then if there are no problems here too, the changes will be deployed to the production server hosted on MOC using OpenShift. This server is running Nginx, load balancing the server’s resource availability and efficiency.
 
