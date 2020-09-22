@@ -2,7 +2,9 @@ from app import app
 from flask import redirect, jsonify, request
 from flask_restful import Resource, Api
 import string
-from random import choices
+import requests
+
+
 api = Api(app, catch_all_404s=True)
 
 @app.route("/")
@@ -28,20 +30,37 @@ class ShortLink(Resource):
         
 
 class PostLongLink(Resource):
-    def post(self):    
+    def post(self): 
         json_data = request.get_json(force=True) 
         # json data looks like this: (to be modified)
         # {
 	    #     "longLink": "https://www.youtube.com/",
 	    #     "expireAt" : "2020/9/30"
-        # }  
-        shortLink = self.shortLinkGenerator() #call to the short link generator 
-        #TODO 
-        #Map shortLink and json_data['longLink'] to DB
-        return {
-            'shortLink': shortLink,
-            'expireAt': 'date',
+        # } 
+        longLink = json_data['longLink']
+        #checking URL validation
+        try:
+            if 'http://' not in json_data['longLink'] or 'https://' not in json_data['longLink']:
+                longLink = 'http://' + longLink
+                print(longLink)
+            if '.com' not in json_data['longLink']:
+                longLink = longLink + '.com'
+                print(longLink)
+            response = requests.get(longLink)
+            print("URL is valid and exists on the internet")
+            shortLink = self.shortLinkGenerator() #call to the short link generator 
+            #TODO 
+            #Map shortLink and json_data['longLink'] to DB
+            return {
+                'shortLink': shortLink,
+                'expireAt': 'date',
             }
+        except requests.ConnectionError as exception:
+            return {
+            'message': json_data['longLink'] + " is not a valid URL",
+            'status': 404,
+            },
+
     def delete(self, link):
         shortLink = link
         # TODO
