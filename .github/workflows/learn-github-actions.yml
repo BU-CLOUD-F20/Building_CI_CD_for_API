@@ -12,6 +12,6 @@ jobs:
   format-to-pep8:
     runs-on: ubuntu-latest
     steps:
-      - uses: peter-evans/autopep8@v1
+      - uses: peter-evans/autopep8@v1.2.0
         with:
           args: --recursive --in-place --aggressive --aggressive
