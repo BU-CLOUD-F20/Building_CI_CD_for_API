@@ -8,10 +8,10 @@ jobs:
       - uses: actions/setup-node@v1
       - run: npm install -g bats
       - run: bats -v
-
-name: Format to PEP 8
-on: [push]
-id: autopep8
-uses: peter-evans/autopep8@v1
-with:
-  args: --recursive --in-place --aggressive --aggressive
+      
+  format-to-pep8:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: peter-evans/autopep8@v1
+      - with:
+          args: --recursive --in-place --aggressive --aggressive
