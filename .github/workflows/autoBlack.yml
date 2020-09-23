@@ -22,3 +22,4 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
           git commit -am "fixup! Format Python code with psf/black push"
           git push --force origin HEAD:$GITHUB_REF
+          
