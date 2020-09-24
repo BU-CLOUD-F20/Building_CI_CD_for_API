@@ -1,0 +1,11 @@
+workflow "Example Workflow" {
+  on = "push"
+  resolves = ["Lint"]
+}
+
+action "Lint" {
+  uses = "lgeiger/black-action@master"
+  with:
+    repo-token: "${{ secrets.GITHUB_TOKEN }}"
+  args = ". --check"
+}
