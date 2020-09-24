@@ -1,11 +1,28 @@
-workflow "Example Workflow" {
-  on = "push"
-  resolves = ["Lint"]
-}
+name: Apply Black Gradually
 
-action "Lint" {
-  uses = "lgeiger/black-action@master"
-  with:
-    repo-token: "${{ secrets.GITHUB_TOKEN }}"
-  args = ". --check"
-}
+on:
+  push
+
+jobs:
+  apply-black:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: master
+          fetch-depth: 0
+      - name: Apply Black Gradually
+        id: black
+        uses: rocioar/gradual-black-formatter@v2
+        with:
+          number_of_files: 99
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Apply black to ${{ steps.black.outputs.number_of_modified_files }} files
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          title: Apply black to ${{ steps.black.outputs.number_of_modified_files }} files
+          body: "Auto-generated PR that applies black to: ${{ steps.black.outputs.modified_file_names }}."
+          branch: black
