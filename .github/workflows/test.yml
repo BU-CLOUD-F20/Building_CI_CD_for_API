@@ -22,7 +22,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Apply black to ${{ steps.black.outputs.number_of_modified_files }} files
-          committer: GitHub <noreply@github.com>
+          committer: GitHub <kaitoyamagishi1109@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           title: Apply black to ${{ steps.black.outputs.number_of_modified_files }} files
           body: "Auto-generated PR that applies black to: ${{ steps.black.outputs.modified_file_names }}."
