@@ -1,29 +1,28 @@
-name: Apply Black Gradually
-
+name: Formatting python code
 on:
-  push
-
+  push:
+    paths:
+    - '**.py'
 jobs:
-  apply-black:
-    if: github.head_ref == 'github-actions'
+  autoyapf:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@master
         with:
-          ref: master
-          fetch-depth: 0
-      - name: Apply Black Gradually
-        id: black
-        uses: rocioar/gradual-black-formatter@v2
+          ref: ${{ github.head_ref }}
+      - name: autoyapf
+        id: autoyapf
+        uses: mritunjaysharma394/autoyapf@v2
         with:
-          number_of_files: 99
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Apply black to ${{ steps.black.outputs.number_of_modified_files }} files
-          committer: GitHub <kaitoyamagishi1109@github.com>
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          title: Apply black to ${{ steps.black.outputs.number_of_modified_files }} files
-          body: "Auto-generated PR that applies black to: ${{ steps.black.outputs.modified_file_names }}."
-          branch: github-actions
+          args: --style pep8 --recursive --in-place .
+      - name: Check for modified files
+        id: git-check
+        run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
+      - name: Push changes
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          git config --global user.name 'Kaito Yamagishi'
+          git config --global user.email 'kaitoy@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git commit -am "Automated autoyapf fixes"
+          git push
