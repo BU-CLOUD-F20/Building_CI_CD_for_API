@@ -9,8 +9,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-python@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+        python-version: '3.8.x'
+        architecture: 'x64'
       - run: pip install black
       - run: black --check .
       - name: If needed, commit black changes to a new pull request
@@ -22,4 +25,3 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
           git commit -am "fixup! Format Python code with psf/black push"
           git push --force origin HEAD:$GITHUB_REF
-          
