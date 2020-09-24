@@ -5,6 +5,7 @@ on:
 
 jobs:
   apply-black:
+    if: github.head_ref == 'github-actions'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
