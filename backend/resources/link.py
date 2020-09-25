@@ -1,4 +1,4 @@
-original_link# Import flask
+# Import flask
 from flask import redirect, jsonify, request
 from flask_restful import Resource
 
