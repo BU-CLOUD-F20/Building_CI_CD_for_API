@@ -34,7 +34,7 @@ class Link(Resource):
             if '.com' not in json_data['original_link']:
                 original_link = original_link + '.com'
                 print(original_link)
-            response = request.get(original_link)
+            response = request.args.get(original_link)
             print("URL is valid and exists on the internet")
             short_link = self.short_link_generator()  # call to the short link generator
             # TODO
@@ -49,8 +49,7 @@ class Link(Resource):
                 'status': 404,
             },
 
-    def delete(self, link):
-        short_link = link
+    def delete(self, link_id):
         # TODO
         # algo for deleting short_link
         return 'deleted'
