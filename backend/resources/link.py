@@ -10,7 +10,7 @@ from datetime import date, datetime, timedelta
 # Constants
 WEBSITE_URL = 'http://localhost:5000/'
 
-class LinkApi(Resource):
+class LinkAPI(Resource):
     def get(self, link_id):
         try :
             original_link = Link.objects.get_or_404(link_id=link_id)['original_link']
