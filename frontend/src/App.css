@@ -14,8 +14,7 @@ body {
 	background-color: #e6e6e6;
 }
 
-
-.BurgerMenu {
+/* .BurgerMenu {
 	position: relative;
 	padding-top: .7rem;
 	cursor: pointer;
@@ -44,4 +43,11 @@ body {
 .Open span:nth-child(1) {
 	transform: rotate(-45deg);
 	top: 11px;
+} */
+
+@media (max-width: 770) {
+	.collapse-menu {
+		display: flex;
+		box-sizing: border-box;
+	}
 }

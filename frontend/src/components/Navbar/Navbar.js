@@ -43,6 +43,7 @@ export default Navbar;
 
 const NavBar = styled(animated.nav)`
   position: fixed;
+  margin-bottom: 0;
   width: 100%;
   top: 0;
   left: 0;
