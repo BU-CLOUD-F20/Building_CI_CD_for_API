@@ -1,5 +1,5 @@
-from .link import LinkApi
+from .link import LinkAPI
 
 
 def initialize_routes(api):
-    api.add_resource(LinkApi, '/', '/<string:link_id>')
+    api.add_resource(LinkAPI, "/", "/<string:link_id>")
