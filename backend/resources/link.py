@@ -6,7 +6,7 @@ from flask_restful import Resource
 import string
 
 
-class Link(Resource):
+class LinkApi(Resource):
     def get(self, link_id):
         # get original URL from DB
         exist = True  # check from DB if the short link exist in DB
