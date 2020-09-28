@@ -1,4 +1,4 @@
-from .link import Link
+from .link import LinkApi
 
 
 def initialize_routes(api):
