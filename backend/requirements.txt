@@ -10,6 +10,7 @@ cycler==0.10.0
 distlib==0.3.0
 dnspython==2.0.0
 filelock==3.0.12
+pytest == 6.1.0
 Flask==1.1.2
 flask-mongoengine==0.9.5
 Flask-RESTful==0.3.8
