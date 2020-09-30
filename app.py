@@ -9,7 +9,7 @@ from resources.routes import initialize_routes
 
 # Initialization
 app = Flask(__name__)
-CORS(app)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 api = Api(app, catch_all_404s=True)
 
 # Config
