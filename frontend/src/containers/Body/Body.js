@@ -10,21 +10,29 @@ import axios from 'axios';
 
 const LandingPage = () => {
 	const [ shortURL, setShortURL ] = useState('');
+	const [ isLoading, setIsLoading ] = useState(false);
 
 	const getShortURLHandler = (url) => {
 		const urlObj = {
 			original_link: url,
 			expire_at: '2020/10/20'
 		};
-
+		setIsLoading(true);
 		const API = `http://shorturl3-ece-528-building-ci-cd-for-api.k-apps.osh.massopen.cloud`;
-		// const API = `http://localhost:5000/`
+		// const API = `http://localhost:5000/`;
 		axios
-			.post(API, urlObj)
+			.post(API, urlObj, {
+				headers: {
+					'Access-Control-Allow-Origin': '*',
+					'Content-Type': 'application/json'
+				}
+			})
 			.then((result) => {
 				setShortURL(result.data.short_link);
+				setIsLoading(false);
 			})
 			.catch((err) => {
+				setIsLoading(false);
 				console.log(err);
 			});
 	};

@@ -71,7 +71,7 @@ class LinkAPI(Resource):
             try:
                 short_link = Link.objects.get_or_404(link_id=link_id)["short_link"]
                 print("short_link", short_link)
-                return jsonify(short_link=short_link, message="the url alreadt exist")
+                return jsonify(short_link=short_link, message="the url already exist")
             finally:
                 print(e)
                 return jsonify(short_link=short_link, message=str(e))
