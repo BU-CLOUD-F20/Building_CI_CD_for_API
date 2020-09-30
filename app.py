@@ -11,8 +11,8 @@ app = Flask(__name__)
 api = Api(app, catch_all_404s=True)
 
 # Config
-app.config['MONGODB_SETTINGS'] = {
-    'host': 'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
+app.config["MONGODB_SETTINGS"] = {
+    "host": "mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority"
 }
 
 initialize_db(app)
@@ -20,5 +20,5 @@ initialize_routes(api)
 
 
 if __name__ == "__main__":
-    # app.run(debug=True, host="0.0.0.0", port=5000)
-    app.run(debug=True, port=5000)
+    app.run(debug=True, host="0.0.0.0", port=5000)
+    # app.run(debug=True, port=5000)
