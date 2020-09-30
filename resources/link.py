@@ -17,18 +17,24 @@ class LinkAPI(Resource):
         try:
             original_link = Link.objects.get_or_404(link_id=link_id)["original_link"]
             print("original_link", original_link)
-            # return redirect(original_link)
-            return jsonify(original_link=original_link)
+            return redirect(original_link)
         except:
             return "Link not found", 400
-        return {"message": "The short link doesn't exist.", "status": 404}
 
     def post(self):
-        original_link = request.args.get("original_link")
-        expire_date = request.args.get("expire_at")
-
-        json_data = {"original_link": original_link, "expire_at": expire_date}
-        # json data looks like this: (to be modified)
+        request_data = request.get_json()
+        original_link = request_data["original_link"]
+        if "expire_at" in request_data:
+            # add validation for date format later
+            expire_at = request_data["expire_at"].replace("/", "-")
+        else:
+            # set default expire_at to 14 days from now
+            expire_at = (
+                (date.today() + timedelta(days=14))
+                .strftime("%Y/%m/%d")
+                .replace("/", "-")
+            )
+        # request looks like this:
         # {
         #     "original_link": "https://www.youtube.com/",
         #     "expire_at" : "2020-09/-30"
@@ -37,46 +43,24 @@ class LinkAPI(Resource):
         # original_link = json_data['original_link']
         # checking URL validation
         try:
-            if (
-                "http://" not in json_data["original_link"]
-                or "https://" not in json_data["original_link"]
-            ):
+            if "http://" not in original_link and "https://" not in original_link:
                 original_link = "http://" + original_link
-                print(original_link)
-            if ".com" not in json_data["original_link"]:
-                original_link = original_link + ".com"
-                print(original_link)
-            response = request.args.get(original_link)
-            print("URL is valid and exists on the internet")
-            short_link = self.short_link_generator()  # call to the short link generator
-            # TODO
-            # Map short_link and json_data['original_link'] to DB
-            return {
+            link_id = self.short_link_generator(original_link)
+            short_link = WEBSITE_URL + link_id
+            data = {
+                "original_link": original_link,
+                "expire_at": expire_at,
                 "short_link": short_link,
                 "expire_at": "date",
             }
             Link(**data).save()
-            response = jsonify(data)
-            response.status_code = 200
-            return response
-        # except db.errors.DuplicateKeyError:
-
+            return {
+                "short_link": short_link,
+                "expire_at": expire_at,
+            }, 201
         except Exception as e:
-            try:
-                link_id = Link.objects.get_or_404(link_id=link_id)["link_id"]
-                short_link = Link.objects.get_or_404(link_id=link_id)["short_link"]
-                print("short_link", short_link)
-                return (
-                    jsonify(short_link=short_link, message="the url alreadt exist"),
-                    201,
-                )
-            finally:
-                print(e)
-                return jsonify(link_id=link_id, short_link=short_link, message=str(e))
-                # return 'Oops, something went wrong', 500
-
-            # print(e)
-            # return 'Oops, something went wrong', 500
+            print(e)
+            return "Oops, something went wrong", 500
 
     def delete(self, link_id):
         try:
