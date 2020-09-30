@@ -25,7 +25,7 @@ class LinkAPI(Resource):
 
     def post(self):
         request_data = request.get_json()
-        print("============",request_data)
+        print("============", request_data)
         original_link = request_data['original_link']
         if 'expire_at' in request_data:
             # add validation for date format later
