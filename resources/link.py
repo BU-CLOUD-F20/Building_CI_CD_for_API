@@ -26,14 +26,10 @@ class LinkAPI(Resource):
         original_link = request_data["original_link"]
         if "expire_at" in request_data:
             # add validation for date format later
-            expire_at = request_data["expire_at"].replace("/", "-")
+            expire_at = request_data["expire_at"]
         else:
             # set default expire_at to 14 days from now
-            expire_at = (
-                (date.today() + timedelta(days=14))
-                .strftime("%Y/%m/%d")
-                .replace("/", "-")
-            )
+            expire_at = (date.today() + timedelta(days=14)).strftime("%Y/%m/%d")
         # request looks like this:
         # {
         #     "original_link": "https://www.youtube.com/",
