@@ -13,12 +13,13 @@ WEBSITE_URL = 'http://localhost:5000/'
 
 class LinkAPI(Resource):
     def get(self, link_id):
-        try :
-            original_link = Link.objects.get_or_404(link_id=link_id)['original_link']
+        try:
+            original_link = Link.objects.get_or_404(
+                link_id=link_id)['original_link']
             print('original_link', original_link)
             # return redirect(original_link)
             return redirect(original_link)
-        except :
+        except:
             return 'Link not found', 400
 
     def post(self):
@@ -57,21 +58,17 @@ class LinkAPI(Resource):
                 'expire_at': expire_at,
             }, 201, {'Access-Control-Allow-Origin', '*'}
         # except db.errors.DuplicateKeyError:
-            
-        except Exception as e :
+
+        except Exception as e:
             try:
-                short_link = Link.objects.get_or_404(link_id=link_id)['short_link']
+                short_link = Link.objects.get_or_404(
+                    link_id=link_id)['short_link']
                 print('short_link', short_link)
-                return jsonify(
-                    short_link = short_link,
-                    message = 'the url alreadt exist'
-                )
+                return jsonify(short_link=short_link,
+                               message='the url alreadt exist')
             finally:
                 print(e)
-                return jsonify(
-                    short_link = short_link,
-                    message=str(e)
-                )
+                return jsonify(short_link=short_link, message=str(e))
                 # return 'Oops, something went wrong', 500
 
             # print(e)
