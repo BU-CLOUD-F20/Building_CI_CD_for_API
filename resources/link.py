@@ -53,12 +53,12 @@ class LinkAPI(Resource):
                 "link_id": link_id
             }
             Link(**data).save()
-            
+
             res = {
                 'short_link': short_link,
                 'expire_at': expire_at,
             }
-            
+
             response = jsonify(res)
             response.status_code(201)
 
