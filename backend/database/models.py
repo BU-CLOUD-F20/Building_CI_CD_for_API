@@ -1,7 +1,8 @@
 from .db import db
+from flask_mongoengine.wtf import model_form
 
-# Example DB Object Schema
-# class Movie(db.Document):
-#     name = db.StringField(required=True, unique=True)
-#     casts = db.ListField(db.StringField(), required=True)
-#     genres = db.ListField(db.StringField(), required=True)
+class Link(db.Document):
+    link_id = db.StringField(required=True, unique=True)
+    short_link = db.StringField(required=True, unique=True)
+    original_link = db.StringField(required=True)
+    expire_at = db.DateTimeField()
