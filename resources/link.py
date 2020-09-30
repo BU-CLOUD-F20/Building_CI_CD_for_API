@@ -66,7 +66,7 @@ class LinkAPI(Resource):
                     link_id=link_id)['short_link']
                 print('short_link', short_link)
                 return jsonify(short_link=short_link,
-                               message='the url alreadt exist')
+                               message='the url already exist')
             finally:
                 print(e)
                 return jsonify(short_link=short_link, message=str(e))
