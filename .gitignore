@@ -1,3 +1,9 @@
 .vscode
 env
 .DS_Store
+/resources/__pycache__
+/database/__pycache__
+# Byte-compiled / optimized / DLL files
+/resources/__pycache__/
+/database/__pycache__/
+*.py[cod]
