@@ -50,23 +50,24 @@ class LinkApi(Resource):
                 "link_id": link_id
             }
             Link(**data).save()
-            return {
-                'short_link': short_link,
-                'expire_at': expire_at,
-            }, 201
+            response = jsonify(data)
+            response.status_code = 200 
+            return response
         # except db.errors.DuplicateKeyError:
             
         except Exception as e :
             try:
+                link_id = Link.objects.get_or_404(link_id=link_id)['link_id']
                 short_link = Link.objects.get_or_404(link_id=link_id)['short_link']
                 print('short_link', short_link)
                 return jsonify(
                     short_link = short_link,
                     message = 'the url alreadt exist'
-                )
+                ), 201
             finally:
                 print(e)
                 return jsonify(
+                    link_id = link_id,
                     short_link = short_link,
                     message=str(e)
                 )
