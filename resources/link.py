@@ -16,13 +16,19 @@ class LinkAPI(Resource):
         return {'message': "The short link doesn't exist.", 'status': 404}
 
     def post(self):
-        json_data = request.get_json(force=True)
+        original_link = request.args.get('original_link')
+        expire_date = request.args.get('expire_at')
+        
+        json_data = {
+            "original_link": original_link,
+            "expire_at": expire_date
+        }
         # json data looks like this: (to be modified)
         # {
         #     "original_link": "https://www.youtube.com/",
         #     "expire_at" : "2020/9/30"
         # }
-        original_link = json_data['original_link']
+        # original_link = json_data['original_link']
         # checking URL validation
         try:
             if 'http://' not in json_data[
