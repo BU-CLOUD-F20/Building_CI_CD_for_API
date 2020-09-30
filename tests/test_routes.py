@@ -11,19 +11,21 @@ def test_base_route_success():
     api = Api(app, catch_all_404s=True)
     # Config
     app.config['MONGODB_SETTINGS'] = {
-        'host': 'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
+        'host':
+        'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
     }
 
     initialize_db(app)
     initialize_routes(api)
     client = app.test_client()
-    url ='/' + 'aaaa'
+    url = '/' + 'aaaa'
 
     response = client.get(url)
     assert response.headers[2] == ('Location', 'https://www.youtube.com/')
-    assert response.status_code == 302 # redirect respond code to 'https://www.youtube.com/'
-# import json
+    assert response.status_code == 302  # redirect respond code to 'https://www.youtube.com/'
 
+
+# import json
 
 # def test_index(app, client):
 #     res = client.get('/')
