@@ -53,14 +53,15 @@ class LinkAPI(Resource):
                 "expire_at": "date",
             }
             Link(**data).save()
-            response = jsonify(
+
+            return (
                 {
                     "short_link": short_link,
                     "expire_at": expire_at,
-                }
+                },
+                201,
+                {"Access-Control-Allow-Origin", "*"},
             )
-            response.headers.add("Access-Control-Allow-Origin", "*")
-            return response
         except Exception as e:
             print(e)
             return "Oops, something went wrong", 500
