@@ -16,7 +16,6 @@ class LinkAPI(Resource):
         try:
             original_link = Link.objects.get_or_404(
                 link_id=link_id)['original_link']
-            print('original_link', original_link)
             return redirect(original_link)
         except:
             return 'Link not found', 400
@@ -51,10 +50,12 @@ class LinkAPI(Resource):
                 "link_id": link_id
             }
             Link(**data).save()
-            return {
+            response = jsonify({
                 'short_link': short_link,
                 'expire_at': expire_at,
-            }, 201
+            })
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            return response
         except Exception as e:
             print(e)
             return 'Oops, something went wrong', 500
