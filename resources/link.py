@@ -14,8 +14,8 @@ WEBSITE_URL = 'http://localhost:5000/'
 class LinkAPI(Resource):
     def get(self, link_id):
         try:
-            original_link = Link.objects.get_or_404(link_id=link_id)[
-                'original_link']
+            original_link = Link.objects.get_or_404(
+                link_id=link_id)['original_link']
             print('original_link', original_link)
             return redirect(original_link)
         except:
