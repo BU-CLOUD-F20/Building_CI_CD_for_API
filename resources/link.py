@@ -16,6 +16,8 @@ class LinkAPI(Resource):
     def get(self, link_id):
         try:
             original_link = Link.objects.get_or_404(link_id=link_id)["original_link"]
+            print("original_link", original_link)
+            # return redirect(original_link)
             return redirect(original_link)
         except:
             return "Link not found", 400
