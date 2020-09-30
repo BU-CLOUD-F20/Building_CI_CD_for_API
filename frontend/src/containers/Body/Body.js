@@ -17,11 +17,12 @@ const LandingPage = () => {
 			original_link: url,
 			expire_at: '2020/10/20'
 		};
-		const API = `http://shorturl3-ece-528-building-ci-cd-for-api.k-apps.osh.massopen.cloud`;
-		// const API = `http://localhost:5000/`;
+		// const API = `http://shorturl3-ece-528-building-ci-cd-for-api.k-apps.osh.massopen.cloud`;
+		const API = `http://localhost:5000/`;
 		// setIsLoading(true);
 		axios
 			.post(API, urlObj, {
+				crossDomain: true,
 				headers: {
 					'Access-Control-Allow-Origin': '*',
 					'Content-Type': 'application/json'

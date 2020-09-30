@@ -60,7 +60,6 @@ class LinkAPI(Resource):
             }
             
             response = jsonify(res)
-            response.headers.add('Access-Control-Allow-Origin', '*')
             response.status_code(201)
 
             return response
