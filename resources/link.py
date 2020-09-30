@@ -25,7 +25,6 @@ class LinkAPI(Resource):
 
     def post(self):
         request_data = request.get_json()
-        print("============", request_data)
         original_link = request_data["original_link"]
         if "expire_at" in request_data:
             # add validation for date format later
@@ -58,10 +57,16 @@ class LinkAPI(Resource):
             }
             Link(**data).save()
 
-            return {
+            res = {
                 "short_link": short_link,
                 "expire_at": expire_at,
-            }, 201
+            }
+
+            response = jsonify(res)
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            response.status_code(201)
+
+            return response
         # except db.errors.DuplicateKeyError:
 
         except Exception as e:
