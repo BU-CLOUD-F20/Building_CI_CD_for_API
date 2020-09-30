@@ -10,7 +10,7 @@ from resources.routes import initialize_routes
 # Initialization
 app = Flask(__name__)
 api = Api(app, catch_all_404s=True)
-cors = CORS(app)
+cors = CORS(app, resources=r'/*')
 
 # cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
