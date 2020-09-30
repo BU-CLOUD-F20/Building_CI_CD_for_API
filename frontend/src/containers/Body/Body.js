@@ -10,7 +10,7 @@ import axios from 'axios';
 
 const LandingPage = () => {
 	const [ shortURL, setShortURL ] = useState('');
-	const [ isLoading, setIsLoading ] = useState(false);
+	// const [ isLoading, setIsLoading ] = useState(false);
 
 	const getShortURLHandler = (url) => {
 		const urlObj = {
@@ -19,7 +19,7 @@ const LandingPage = () => {
 		};
 		const API = `http://shorturl3-ece-528-building-ci-cd-for-api.k-apps.osh.massopen.cloud`;
 		// const API = `http://localhost:5000/`;
-		setIsLoading(true);
+		// setIsLoading(true);
 		axios
 			.post(API, urlObj, {
 				headers: {
@@ -31,10 +31,10 @@ const LandingPage = () => {
 				setShortURL(result.data.short_link);
 			})
 			.catch((err) => {
-				setIsLoading(false);
+				// setIsLoading(false);
 				console.log(err);
 			});
-		setIsLoading(false);
+		// setIsLoading(false);
 	};
 
 	return (
