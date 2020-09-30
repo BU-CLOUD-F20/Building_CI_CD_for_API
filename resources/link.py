@@ -13,22 +13,12 @@ WEBSITE_URL = 'http://localhost:5000/'
 
 class LinkAPI(Resource):
     def get(self, link_id):
-<<<<<<< HEAD:resources/link.py
-        try:
-            original_link = Link.objects.get_or_404(
-                link_id=link_id)['original_link']
-            return redirect(original_link)
-        except:
-=======
         try :
             original_link = Link.objects.get_or_404(link_id=link_id)['original_link']
             print('original_link', original_link)
             # return redirect(original_link)
-            return jsonify(
-                original_link = original_link
-            )
+            return redirect(original_link)
         except :
->>>>>>> 22e024ee6b26ae29bc4dbd25d26187b23abc0bd8:backend/resources/link.py
             return 'Link not found', 400
 
     def post(self):
