@@ -2,6 +2,7 @@ aniso8601==8.0.0
 click==7.1.2
 dnspython==2.0.0
 Flask==1.1.2
+Flask-Cors==3.0.9
 flask-mongoengine==0.9.5
 Flask-RESTful==0.3.8
 Flask-WTF==0.14.3
