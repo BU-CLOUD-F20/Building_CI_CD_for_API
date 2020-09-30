@@ -12,7 +12,6 @@ app = Flask(__name__)
 api = Api(app, catch_all_404s=True)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-
 # Config
 app.config["MONGODB_SETTINGS"] = {
     "host": "mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority"
