@@ -14,7 +14,6 @@ cors = CORS(app)
 
 # cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-
 # Config
 app.config['MONGODB_SETTINGS'] = {
     'host':
