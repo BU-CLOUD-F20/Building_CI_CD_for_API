@@ -3,11 +3,9 @@ from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS
 
-
 # Import DB
 from database.db import initialize_db
 from resources.routes import initialize_routes
-
 
 # Initialization
 app = Flask(__name__)
