@@ -24,21 +24,18 @@ class LinkAPI(Resource):
         return {"message": "The short link doesn't exist.", "status": 404}
 
     def post(self):
-        request_data = request.get_json()
-        original_link = request_data["original_link"]
-        if "expire_at" in request_data:
-            # add validation for date format later
-            expire_at = request_data["expire_at"]
-        else:
-            # set default expire_at to 14 days from now
-            expire_at = (date.today() + timedelta(days=14)).strftime("%Y/%m/%d")
-        # request looks like this:
+        original_link = request.args.get("original_link")
+        expire_date = request.args.get("expire_at")
+
+        json_data = {"original_link": original_link, "expire_at": expire_date}
+        # json data looks like this: (to be modified)
         # {
         #     "original_link": "https://www.youtube.com/",
         #     "expire_at" : "2020-09/-30"
         # }
-
         # find way to validate url
+        # original_link = json_data['original_link']
+        # checking URL validation
         try:
             if (
                 "http://" not in json_data["original_link"]
