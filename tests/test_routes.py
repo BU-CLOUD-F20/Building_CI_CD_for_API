@@ -17,13 +17,12 @@ def test_base_route():
     initialize_db(app)
     initialize_routes(api)
     client = app.test_client()
-    url = "/" + "aaaa"
+    url = "/"
 
     response = client.get(url)
-    assert response.headers[2] == ("Location", "https://www.youtube.com/")
-    assert (
-        response.status_code == 302
-    )  # redirect respond code to 'https://www.youtube.com/'
+    assert response.headers[1] == ("Content-Length", "37")
+    # assert response.headers[2] == ('Location', 'https://www.youtube.com/')
+    assert response.status_code == 500
 
 
 # import json
@@ -169,8 +168,3 @@ def test_delete_nonexisting_case():
 
 
 # delete testing exist
-# def test_index(app, client):
-#     res = client.get('/')
-#     assert res.status_code == 200
-#     expected = {'hello': 'world'}
-#     assert expected == json.loads(res.get_data(as_text=True))
