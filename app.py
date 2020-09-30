@@ -14,7 +14,6 @@ cors = CORS(app)
 
 # cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-
 # Config
 app.config["MONGODB_SETTINGS"] = {
     "host": "mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority"
