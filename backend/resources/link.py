@@ -2,7 +2,7 @@
 from flask import redirect, jsonify, request
 from flask_restful import Resource
 from database.models import Link
-
+from database.db import db
 # Import libraries
 import string
 from datetime import date, datetime, timedelta
@@ -15,7 +15,10 @@ class LinkApi(Resource):
         try :
             original_link = Link.objects.get_or_404(link_id=link_id)['original_link']
             print('original_link', original_link)
-            return redirect(original_link)
+            # return redirect(original_link)
+            return jsonify(
+                original_link = original_link
+            )
         except :
             return 'Link not found', 400
 
@@ -31,7 +34,7 @@ class LinkApi(Resource):
         # request looks like this:
         # {
         #     "original_link": "https://www.youtube.com/",
-        #     "expire_at" : "2020/09/30"
+        #     "expire_at" : "2020-09/-30"
         # }
 
         # find way to validate url
@@ -51,9 +54,26 @@ class LinkApi(Resource):
                 'short_link': short_link,
                 'expire_at': expire_at,
             }, 201
+        # except db.errors.DuplicateKeyError:
+            
         except Exception as e :
-            print(e)
-            return 'Oops, something went wrong', 500
+            try:
+                short_link = Link.objects.get_or_404(link_id=link_id)['short_link']
+                print('short_link', short_link)
+                return jsonify(
+                    short_link = short_link,
+                    message = 'the url alreadt exist'
+                )
+            finally:
+                print(e)
+                return jsonify(
+                    short_link = short_link,
+                    message=str(e)
+                )
+                # return 'Oops, something went wrong', 500
+
+            # print(e)
+            # return 'Oops, something went wrong', 500
 
     def delete(self, link_id):
         try :
