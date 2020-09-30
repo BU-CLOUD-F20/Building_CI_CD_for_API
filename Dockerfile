@@ -10,7 +10,6 @@ COPY ./requirements.txt /flask_app/requirements.txt
 WORKDIR /flask_app
 
 RUN pip3 install -r requirements.txt
-RUN pip3 list
 
 EXPOSE 5000
 
