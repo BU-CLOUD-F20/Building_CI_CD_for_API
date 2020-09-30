@@ -9,7 +9,7 @@ import string
 from datetime import date, datetime, timedelta
 
 # Constants
-# WEBSITE_URL = 'http://localhost:5000/'
+WEBSITE_URL = "http://localhost:5000/"
 WEBSITE_URL = "http://buildingcicdforapi-ece-528-building-ci-cd-for-api.k-apps.osh.massopen.cloud/"
 
 
@@ -25,6 +25,7 @@ class LinkAPI(Resource):
 
     def post(self):
         request_data = request.get_json()
+        print("============", request_data)
         original_link = request_data["original_link"]
         if "expire_at" in request_data:
             # add validation for date format later
@@ -57,14 +58,10 @@ class LinkAPI(Resource):
             }
             Link(**data).save()
 
-            return (
-                {
-                    "short_link": short_link,
-                    "expire_at": expire_at,
-                },
-                201,
-                {"Access-Control-Allow-Origin", "*"},
-            )
+            return {
+                "short_link": short_link,
+                "expire_at": expire_at,
+            }, 201
         # except db.errors.DuplicateKeyError:
 
         except Exception as e:
