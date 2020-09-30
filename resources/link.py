@@ -13,10 +13,7 @@ class LinkAPI(Resource):
         if exist:
             return redirect('https://www.youtube.com/')
             # return redirect(original_link)
-        return {
-            'message': "The short link doesn't exist.",
-            'status': 404
-        }
+        return {'message': "The short link doesn't exist.", 'status': 404}
 
     def post(self):
         json_data = request.get_json(force=True)
@@ -28,7 +25,9 @@ class LinkAPI(Resource):
         original_link = json_data['original_link']
         # checking URL validation
         try:
-            if 'http://' not in json_data['original_link'] or 'https://' not in json_data['original_link']:
+            if 'http://' not in json_data[
+                    'original_link'] or 'https://' not in json_data[
+                        'original_link']:
                 original_link = 'http://' + original_link
                 print(original_link)
             if '.com' not in json_data['original_link']:
@@ -36,7 +35,8 @@ class LinkAPI(Resource):
                 print(original_link)
             response = request.args.get(original_link)
             print("URL is valid and exists on the internet")
-            short_link = self.short_link_generator()  # call to the short link generator
+            short_link = self.short_link_generator(
+            )  # call to the short link generator
             # TODO
             # Map short_link and json_data['original_link'] to DB
             return {
