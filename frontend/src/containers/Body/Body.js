@@ -6,13 +6,26 @@ import { Container } from 'react-bootstrap';
 import URLForm from '../../components/Form/URLForm/URLForm';
 import ShortURLForm from '../../components/Form/ShortURLForm/ShortURLForm';
 
+import axios from 'axios';
+
 const LandingPage = () => {
 	const [ shortURL, setShortURL ] = useState('');
 
 	const getShortURLHandler = (url) => {
-		console.log('Short URL Handler called on : ', url);
-		const shortUrl = `http://shorturl3-ece-528-building-ci-cd-for-api.k-apps.osh.massopen.cloud/${url}`;
-		setShortURL(shortUrl);
+		const urlObj = {
+			original_link: url,
+			expire_at: '2020/10/20'
+		};
+
+		const API = `http://shorturl3-ece-528-building-ci-cd-for-api.k-apps.osh.massopen.cloud`;
+		axios
+			.post(API, urlObj)
+			.then((result) => {
+				setShortURL(result.data.short_link);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	return (

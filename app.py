@@ -1,13 +1,17 @@
 # Import Flask
 from flask import Flask
 from flask_restful import Api
+from flask_cors import CORS
+
 
 # Import DB
 from database.db import initialize_db
 from resources.routes import initialize_routes
 
+
 # Initialization
 app = Flask(__name__)
+CORS(app)
 api = Api(app, catch_all_404s=True)
 
 # Config
