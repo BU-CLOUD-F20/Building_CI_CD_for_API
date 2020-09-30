@@ -1,6 +1,7 @@
 from .db import db
 from flask_mongoengine.wtf import model_form
 
+
 class Link(db.Document):
     
     try:
