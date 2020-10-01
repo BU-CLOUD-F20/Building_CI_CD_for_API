@@ -1,8 +1,8 @@
 # Import flask
 from flask import redirect, jsonify, request
 from flask_restful import Resource
-from database.models import Link
-from database.db import db
+from backend.database.models import Link
+from backend.database.db import db
 
 # Import libraries
 import string
