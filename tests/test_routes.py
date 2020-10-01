@@ -2,8 +2,8 @@ from flask import Flask
 from flask_restful import Api
 import json
 
-from database.db import initialize_db
-from resources.routes import initialize_routes
+from backend.database.db import initialize_db
+from backend.resources.routes import initialize_routes
 
 
 def test_base_route():
@@ -77,7 +77,7 @@ def test_case1():
 
     link_id = response.json["link_id"]
     response = client.get("/" + link_id)
-    assert response.status_code == 200
+    assert response.status_code == 302  # redirect response
 
 
 # post a new test url2
@@ -109,7 +109,7 @@ def test_case2():
 
     link_id = response.json["link_id"]
     response = client.get("/" + link_id)
-    assert response.status_code == 200
+    assert response.status_code == 302
 
     response = client.delete("/" + link_id)
     assert response.status_code == 200
@@ -144,7 +144,7 @@ def test_case3():
 
     link_id = response.json["link_id"]
     response = client.get("/" + link_id)
-    assert response.status_code == 200
+    assert response.status_code == 302
 
     response = client.delete("/" + link_id)
     assert response.status_code == 200
