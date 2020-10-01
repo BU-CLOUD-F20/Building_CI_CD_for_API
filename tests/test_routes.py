@@ -78,7 +78,7 @@ def test_case1():
 
     link_id = response.json['link_id']
     response = client.get('/' + link_id)
-    assert response.status_code == 302    #redirect response
+    assert response.status_code == 302  #redirect response
 
 
 #post a new test url2
