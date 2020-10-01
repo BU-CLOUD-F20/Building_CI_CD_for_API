@@ -1,7 +1,7 @@
 # Import Flask
 from flask import Flask
 from flask_restful import Api
-# from flask_cors import CORS
+from flask_cors import CORS
 
 # Import DB
 from backend.database.db import initialize_db
@@ -10,7 +10,7 @@ from backend.resources.routes import initialize_routes
 # Initialization
 app = Flask(__name__)
 api = Api(app, catch_all_404s=True)
-# cors = CORS(app, resources=r'/*')
+cors = CORS(app, resources=r'/*')
 
 # cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
