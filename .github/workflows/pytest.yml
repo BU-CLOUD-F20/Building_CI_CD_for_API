@@ -6,5 +6,6 @@ on:
 jobs:
   pytest:
     runs-on: ubuntu-latest
+    steps:
       - uses: cclauss/GitHub-Action-for-pytest@0.5.0
       - run: pytest -h
