@@ -5,11 +5,11 @@ on:
       - '**.py'
 jobs:
   name: pytest
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2.1.0
-      - name: Python Pylin GitHub Action
-        uses: fylein/python-pytest-github-action@v2
-        with:
-          args: pip3 install -r pytest test/unit
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2.1.0
+    - name: Python Pylin GitHub Action
+      uses: fylein/python-pytest-github-action@v2
+      with:
+        args: pip3 install -r pytest test/unit
