@@ -1,15 +1,20 @@
-name: PyTest
-on:
-  push:
-    paths:
-      - "**.py"
+name: Python package
+
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.6
+        uses: actions/setup-python@v2
         with:
-          ref: ${{ github.head_ref }}
+          python-version: 3.6
+      - name: Install Python dependencies
+        uses: py-actions/py-dependency-install@v2
+        with:
+          path: "./requirements.txt"
       - name: Test with pytest
-        run: pytest -vv
+        run: |
+          pytest
