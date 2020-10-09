@@ -7,12 +7,13 @@ import json
 from backend.database.db import initialize_db
 from backend.resources.routes import initialize_routes
 
+
 def create_app():
     # Initialization
     app = Flask(__name__, static_folder='ui/build')
     api = Api(app, catch_all_404s=True)
     cors = CORS(app, resources=r'/*')
-    
+
     # Config
     app.config['MONGODB_SETTINGS'] = {
         'host':
@@ -21,8 +22,9 @@ def create_app():
 
     initialize_db(app)
     initialize_routes(api)
-    
+
     return app
+
 
 def test_base_route():
     app = create_app()
