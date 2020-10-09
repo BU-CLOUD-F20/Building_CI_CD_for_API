@@ -2,10 +2,11 @@ name: PyTest
 on:
   push:
     paths:
-      - '**.py'
+      - "**.py"
 jobs:
-  name: pytest
+  build:
     runs-on: ubuntu-latest
+    name: PyTest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2.1.0
