@@ -1,12 +1,15 @@
-name: Python Pylin GitHub Action
+name: PyTest
 on:
   push:
     paths:
       - '**.py'
 jobs:
-  pytest:
+  name: pytest
     runs-on: ubuntu-latest
     steps:
-      - uses: fylein/python-pytest-github-action@v2
+      - name: Checkout Code
+        uses: actions/checkout@v2.1.0
+      - name: Python Pylin GitHub Action
+        uses: fylein/python-pytest-github-action@v2
         with:
           args: pip3 install -r pytest test/unit
