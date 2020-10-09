@@ -30,12 +30,12 @@ initialize_routes(api)
 @app.route('/<path:path>')
 def serve(path):
     if path == "":
-        return send_from_directory('frontend/build', 'index.html')
+        return send_from_directory('UI/build', 'index.html')
     else:
-        if os.path.exists("frontend/build/" + path):
-            return send_from_directory('frontend/build', path)
+        if os.path.exists("UI/build/" + path):
+            return send_from_directory('UI/build', path)
         else:
-            return send_from_directory('frontend/build', 'index.html')
+            return send_from_directory('UI/build', 'index.html')
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
