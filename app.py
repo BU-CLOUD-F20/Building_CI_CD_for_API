@@ -25,6 +25,7 @@ app.config['MONGODB_SETTINGS'] = {
 initialize_db(app)
 initialize_routes(api)
 
+
 # Serve UI static files
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
@@ -36,6 +37,7 @@ def serve(path):
             return send_from_directory('UI/build', path)
         else:
             return send_from_directory('UI/build', 'index.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
