@@ -1,9 +1,9 @@
-name: Python package
+name: PyTest
 
 on: [push]
 
 jobs:
-  build:
+  pytest:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -11,7 +11,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.6
-      - name: Install Python dependencies
+      - name: Installing Python dependencies from requirements.txt
         uses: py-actions/py-dependency-install@v2
         with:
           path: "./requirements.txt"
