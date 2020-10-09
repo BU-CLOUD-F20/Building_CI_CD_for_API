@@ -1,7 +1,7 @@
 .vscode
 env
 .DS_Store
-/frontend
+# /frontend
 /resources/__pycache__
 /database/__pycache__
 # Byte-compiled / optimized / DLL files
