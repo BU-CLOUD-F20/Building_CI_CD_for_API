@@ -4,9 +4,10 @@ on:
     paths:
       - '**.py'
 jobs:
-  pytest:
-  runs-on: ubuntu-latest
-  steps:
+  build:
+    runs-on: ubuntu-latest
+    name: PyTest
+    steps:
     - name: Checkout Code
       uses: actions/checkout@v2.1.0
     - name: Python Pylin GitHub Action
