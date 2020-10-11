@@ -5,40 +5,39 @@ import json
 from backend.database.db import initialize_db
 from backend.resources.routes import initialize_routes
 
+#----------1-----------
+def test_base_route(app, client):
+    # app = Flask(__name__)
+    # api = Api(app, catch_all_404s=True)
+    # # Config
+    # app.config['MONGODB_SETTINGS'] = {
+    #     'host':
+    #     'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
+    # }
 
-def test_base_route():
-    app = Flask(__name__)
-    api = Api(app, catch_all_404s=True)
-    # Config
-    app.config['MONGODB_SETTINGS'] = {
-        'host':
-        'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
-    }
-
-    initialize_db(app)
-    initialize_routes(api)
-    client = app.test_client()
+    # initialize_db(app)
+    # initialize_routes(api)
+    # client = app.test_client()
     url = '/'
 
     response = client.get(url)
     assert response.headers[1] == ('Content-Length', '37')
-    # assert response.headers[2] == ('Location', 'https://www.youtube.com/')
     assert response.status_code == 500
 
 
-# import json
-def test_None_Existing_route():
-    app = Flask(__name__)
-    api = Api(app, catch_all_404s=True)
-    # Config
-    app.config['MONGODB_SETTINGS'] = {
-        'host':
-        'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
-    }
+#----------2-----------
+def test_None_Existing_route(app, client):
+    # app = Flask(__name__)
+    # api = Api(app, catch_all_404s=True)
+    # # Config
+    # app.config['MONGODB_SETTINGS'] = {
+    #     'host':
+    #     'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
+    # }
 
-    initialize_db(app)
-    initialize_routes(api)
-    client = app.test_client()
+    # initialize_db(app)
+    # initialize_routes(api)
+    # client = app.test_client()
 
     url = '/testNonExist'
     response = client.get(url)
@@ -46,20 +45,20 @@ def test_None_Existing_route():
     # assert response.headers[2] == ('Location', 'https://www.youtube.com/')
     assert response.status_code == 400
 
+#----------3-----------
+#post a new test url1   post/get
+def test_case1(app, client):
+    # app = Flask(__name__)
+    # api = Api(app, catch_all_404s=True)
+    # # Config
+    # app.config['MONGODB_SETTINGS'] = {
+    #     'host':
+    #     'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
+    # }
 
-#post a new test url1
-def test_case1():
-    app = Flask(__name__)
-    api = Api(app, catch_all_404s=True)
-    # Config
-    app.config['MONGODB_SETTINGS'] = {
-        'host':
-        'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
-    }
-
-    initialize_db(app)
-    initialize_routes(api)
-    client = app.test_client()
+    # initialize_db(app)
+    # initialize_routes(api)
+    # client = app.test_client()
     url = '/'
     test_data = {
         "original_link": "https://www.UrlUnitTesting1.com/",
@@ -78,22 +77,23 @@ def test_case1():
 
     link_id = response.json['link_id']
     response = client.get('/' + link_id)
-    assert response.status_code == 302  #redirect response
+    assert response.status_code == 302    #redirect response
 
 
-#post a new test url2
-def test_case2():
-    app = Flask(__name__)
-    api = Api(app, catch_all_404s=True)
-    # Config
-    app.config['MONGODB_SETTINGS'] = {
-        'host':
-        'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
-    }
+#----------4-----------
+#post a new test url2   post/get/delete
+def test_case2(app, client):
+    # app = Flask(__name__)
+    # api = Api(app, catch_all_404s=True)
+    # # Config
+    # app.config['MONGODB_SETTINGS'] = {
+    #     'host':
+    #     'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
+    # }
 
-    initialize_db(app)
-    initialize_routes(api)
-    client = app.test_client()
+    # initialize_db(app)
+    # initialize_routes(api)
+    # client = app.test_client()
     test_data = {
         "original_link": "https://www.UrlUnitTesting2.com/",
         "expire_at": "2020-10-28"
@@ -116,20 +116,20 @@ def test_case2():
     response = client.delete('/' + link_id)
     assert response.status_code == 200
 
+#----------5-----------
+#post a new test url3   post/get/delete
+def test_case3(app, client):
+    # app = Flask(__name__)
+    # api = Api(app, catch_all_404s=True)
+    # # Config
+    # app.config['MONGODB_SETTINGS'] = {
+    #     'host':
+    #     'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
+    # }
 
-#post a new test url2
-def test_case3():
-    app = Flask(__name__)
-    api = Api(app, catch_all_404s=True)
-    # Config
-    app.config['MONGODB_SETTINGS'] = {
-        'host':
-        'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
-    }
-
-    initialize_db(app)
-    initialize_routes(api)
-    client = app.test_client()
+    # initialize_db(app)
+    # initialize_routes(api)
+    # client = app.test_client()
     test_data = {
         "original_link": "https://www.UrlUnitTesting3.com/",
         "expire_at": "2020-10-28"
@@ -152,19 +152,19 @@ def test_case3():
     response = client.delete('/' + link_id)
     assert response.status_code == 200
 
-
+#----------6-----------
 #delete testing non-exist
-def test_delete_nonexisting_case():
-    app = Flask(__name__)
-    api = Api(app, catch_all_404s=True)
-    # Config
-    app.config['MONGODB_SETTINGS'] = {
-        'host':
-        'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
-    }
+def test_delete_nonexisting_case(app, client):
+    # app = Flask(__name__)
+    # api = Api(app, catch_all_404s=True)
+    # # Config
+    # app.config['MONGODB_SETTINGS'] = {
+    #     'host':
+    #     'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
+    # }
 
-    initialize_db(app)
-    initialize_routes(api)
+    # initialize_db(app)
+    # initialize_routes(api)
     client = app.test_client()
     response = client.delete("/ + " "testNonExist")
     assert response.headers[1] == ('Content-Length', '17')
