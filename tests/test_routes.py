@@ -5,6 +5,7 @@ import json
 from backend.database.db import initialize_db
 from backend.resources.routes import initialize_routes
 
+
 #----------1-----------
 def test_base_route(app, client):
     # app = Flask(__name__)
@@ -45,6 +46,7 @@ def test_None_Existing_route(app, client):
     # assert response.headers[2] == ('Location', 'https://www.youtube.com/')
     assert response.status_code == 400
 
+
 #----------3-----------
 #post a new test url1   post/get
 def test_case1(app, client):
@@ -77,7 +79,7 @@ def test_case1(app, client):
 
     link_id = response.json['link_id']
     response = client.get('/' + link_id)
-    assert response.status_code == 302    #redirect response
+    assert response.status_code == 302  #redirect response
 
 
 #----------4-----------
@@ -116,6 +118,7 @@ def test_case2(app, client):
     response = client.delete('/' + link_id)
     assert response.status_code == 200
 
+
 #----------5-----------
 #post a new test url3   post/get/delete
 def test_case3(app, client):
@@ -151,6 +154,7 @@ def test_case3(app, client):
 
     response = client.delete('/' + link_id)
     assert response.status_code == 200
+
 
 #----------6-----------
 #delete testing non-exist
