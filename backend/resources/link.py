@@ -11,10 +11,18 @@ from datetime import date, datetime, timedelta
 # WEBSITE_URL = 'http://localhost:5000/'
 WEBSITE_URL = 'http://buildingcicdforapi-ece-528-building-ci-cd-for-api.k-apps.osh.massopen.cloud/'
 
-
+class BaseAPI(Resource):
+    def get(self):
+        return 'Link not found', 200
 class LinkAPI(Resource):
+    # def get(self):
+    #     return 'Link not found', 200
+            
     def get(self, link_id):
+        if link_id is None :
+                return 'Link not found', 200
         try:
+            
             original_link = Link.objects.get_or_404(
                 link_id=link_id)['original_link']
             print('original_link', original_link)
