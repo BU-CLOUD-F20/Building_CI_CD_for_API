@@ -33,7 +33,6 @@ def test_case1(app, client):
                            data=json.dumps(test_data),
                            content_type='application/json')
 
-
     assert response.status_code == 200
 
     link_id = response.json['link_id']
