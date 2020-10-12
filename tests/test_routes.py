@@ -1,11 +1,14 @@
-from flask import Flask
+import os
+from flask import Flask, send_from_directory
 from flask_restful import Api
+from flask_cors import CORS
 import json
 
 from backend.database.db import initialize_db
 from backend.resources.routes import initialize_routes
 
 
+# <<<<<<< api
 #----------1----------
 def test_base_route(app, client):
     # app = Flask(__name__)
@@ -39,14 +42,52 @@ def test_None_Existing_route(app, client):
     # initialize_db(app)
     # initialize_routes(api)
     # client = app.test_client()
+    
+    
+# =======
+# def create_app():
+#     # Initialization
+#     app = Flask(__name__, static_folder='ui/build')
+#     api = Api(app, catch_all_404s=True)
+#     cors = CORS(app, resources=r'/*')
 
-    url = '/testNonExist'
+#     # Config
+#     app.config['MONGODB_SETTINGS'] = {
+#         'host':
+#         'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
+#     }
+
+#     initialize_db(app)
+#     initialize_routes(api)
+
+#     return app
+
+
+# def test_base_route():
+#     app = create_app()
+#     client = app.test_client()
+#     url = '/'
+
+#     response = client.get(url)
+#     assert response.headers[1] == ('Content-Length', '136')
+#     # assert response.headers[2] == ('Location', 'https://www.youtube.com/')
+#     assert response.status_code == 404
+
+
+# # import json
+# def test_None_Existing_route():
+#     app = create_app()
+#     client = app.test_client()
+# >>>>>>> master
+
+    url = '/api/testNonExist'
     response = client.get(url)
-    assert response.headers[1] == ('Content-Length', '17')
+    assert response.headers[1] == ('Content-Length', '136')
     # assert response.headers[2] == ('Location', 'https://www.youtube.com/')
-    assert response.status_code == 400
+    assert response.status_code == 404
 
 
+# <<<<<<< api
 #----------3-----------
 #post a new test url1   post/get
 def test_case1(app, client):
@@ -62,12 +103,19 @@ def test_case1(app, client):
     # initialize_routes(api)
     # client = app.test_client()
     url = '/'
+# =======
+# #post a new test url1
+# def test_case1():
+#     app = create_app()
+#     client = app.test_client()
+#     url = '/api/'
+# >>>>>>> master
     test_data = {
         "original_link": "https://www.UrlUnitTesting1.com/",
         "expire_at": "2020-9-30"
     }
     #post a new test url1
-    response = client.post('/',
+    response = client.post('/api/',
                            data=json.dumps(test_data),
                            content_type='application/json')
 
@@ -82,6 +130,7 @@ def test_case1(app, client):
     assert response.status_code == 302  #redirect response
 
 
+# <<<<<<< api
 #----------4-----------
 #post a new test url2   post/get/delete
 def test_case2(app, client):
@@ -96,12 +145,18 @@ def test_case2(app, client):
     # initialize_db(app)
     # initialize_routes(api)
     # client = app.test_client()
+# =======
+# #post a new test url2
+# def test_case2():
+#     app = create_app()
+#     client = app.test_client()
+# >>>>>>> master
     test_data = {
         "original_link": "https://www.UrlUnitTesting2.com/",
         "expire_at": "2020-10-28"
     }
     #post a new test url1
-    response = client.post('/',
+    response = client.post('/api/',
                            data=json.dumps(test_data),
                            content_type='application/json')
 
@@ -119,6 +174,7 @@ def test_case2(app, client):
     assert response.status_code == 200
 
 
+# <<<<<<< api
 #----------5-----------
 #post a new test url3   post/get/delete
 def test_case3(app, client):
@@ -133,12 +189,18 @@ def test_case3(app, client):
     # initialize_db(app)
     # initialize_routes(api)
     # client = app.test_client()
+# =======
+# #post a new test url2
+# def test_case3():
+#     app = create_app()
+#     client = app.test_client()
+# >>>>>>> master
     test_data = {
         "original_link": "https://www.UrlUnitTesting3.com/",
         "expire_at": "2020-10-28"
     }
     #post a new test url1
-    response = client.post('/',
+    response = client.post('/api/',
                            data=json.dumps(test_data),
                            content_type='application/json')
 
@@ -158,6 +220,7 @@ def test_case3(app, client):
 
 #----------6-----------
 #delete testing non-exist
+# <<<<<<< api
 def test_delete_nonexisting_case(app, client):
     # app = Flask(__name__)
     # api = Api(app, catch_all_404s=True)
@@ -169,6 +232,10 @@ def test_delete_nonexisting_case(app, client):
 
     # initialize_db(app)
     # initialize_routes(api)
+# =======
+# def test_delete_nonexisting_case():
+#     app = create_app()
+# >>>>>>> master
     client = app.test_client()
     response = client.delete("/ + " "testNonExist")
     assert response.headers[1] == ('Content-Length', '17')
