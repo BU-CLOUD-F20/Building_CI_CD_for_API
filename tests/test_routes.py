@@ -42,43 +42,40 @@ def test_None_Existing_route(app, client):
     # initialize_db(app)
     # initialize_routes(api)
     # client = app.test_client()
-    
-    
-# =======
-# def create_app():
-#     # Initialization
-#     app = Flask(__name__, static_folder='ui/build')
-#     api = Api(app, catch_all_404s=True)
-#     cors = CORS(app, resources=r'/*')
 
-#     # Config
-#     app.config['MONGODB_SETTINGS'] = {
-#         'host':
-#         'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
-#     }
+    # =======
+    # def create_app():
+    #     # Initialization
+    #     app = Flask(__name__, static_folder='ui/build')
+    #     api = Api(app, catch_all_404s=True)
+    #     cors = CORS(app, resources=r'/*')
 
-#     initialize_db(app)
-#     initialize_routes(api)
+    #     # Config
+    #     app.config['MONGODB_SETTINGS'] = {
+    #         'host':
+    #         'mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority'
+    #     }
 
-#     return app
+    #     initialize_db(app)
+    #     initialize_routes(api)
 
+    #     return app
 
-# def test_base_route():
-#     app = create_app()
-#     client = app.test_client()
-#     url = '/'
+    # def test_base_route():
+    #     app = create_app()
+    #     client = app.test_client()
+    #     url = '/'
 
-#     response = client.get(url)
-#     assert response.headers[1] == ('Content-Length', '136')
-#     # assert response.headers[2] == ('Location', 'https://www.youtube.com/')
-#     assert response.status_code == 404
+    #     response = client.get(url)
+    #     assert response.headers[1] == ('Content-Length', '136')
+    #     # assert response.headers[2] == ('Location', 'https://www.youtube.com/')
+    #     assert response.status_code == 404
 
-
-# # import json
-# def test_None_Existing_route():
-#     app = create_app()
-#     client = app.test_client()
-# >>>>>>> master
+    # # import json
+    # def test_None_Existing_route():
+    #     app = create_app()
+    #     client = app.test_client()
+    # >>>>>>> master
 
     url = '/api/testNonExist'
     response = client.get(url)
@@ -103,13 +100,13 @@ def test_case1(app, client):
     # initialize_routes(api)
     # client = app.test_client()
     url = '/'
-# =======
-# #post a new test url1
-# def test_case1():
-#     app = create_app()
-#     client = app.test_client()
-#     url = '/api/'
-# >>>>>>> master
+    # =======
+    # #post a new test url1
+    # def test_case1():
+    #     app = create_app()
+    #     client = app.test_client()
+    #     url = '/api/'
+    # >>>>>>> master
     test_data = {
         "original_link": "https://www.UrlUnitTesting1.com/",
         "expire_at": "2020-9-30"
@@ -145,12 +142,12 @@ def test_case2(app, client):
     # initialize_db(app)
     # initialize_routes(api)
     # client = app.test_client()
-# =======
-# #post a new test url2
-# def test_case2():
-#     app = create_app()
-#     client = app.test_client()
-# >>>>>>> master
+    # =======
+    # #post a new test url2
+    # def test_case2():
+    #     app = create_app()
+    #     client = app.test_client()
+    # >>>>>>> master
     test_data = {
         "original_link": "https://www.UrlUnitTesting2.com/",
         "expire_at": "2020-10-28"
@@ -189,12 +186,12 @@ def test_case3(app, client):
     # initialize_db(app)
     # initialize_routes(api)
     # client = app.test_client()
-# =======
-# #post a new test url2
-# def test_case3():
-#     app = create_app()
-#     client = app.test_client()
-# >>>>>>> master
+    # =======
+    # #post a new test url2
+    # def test_case3():
+    #     app = create_app()
+    #     client = app.test_client()
+    # >>>>>>> master
     test_data = {
         "original_link": "https://www.UrlUnitTesting3.com/",
         "expire_at": "2020-10-28"
@@ -232,10 +229,10 @@ def test_delete_nonexisting_case(app, client):
 
     # initialize_db(app)
     # initialize_routes(api)
-# =======
-# def test_delete_nonexisting_case():
-#     app = create_app()
-# >>>>>>> master
+    # =======
+    # def test_delete_nonexisting_case():
+    #     app = create_app()
+    # >>>>>>> master
     client = app.test_client()
     response = client.delete("/ + " "testNonExist")
     assert response.headers[1] == ('Content-Length', '17')
