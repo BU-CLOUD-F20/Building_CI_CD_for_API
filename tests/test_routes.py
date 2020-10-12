@@ -6,7 +6,7 @@ from backend.database.db import initialize_db
 from backend.resources.routes import initialize_routes
 
 
-#----------1-----------
+#----------1----------
 def test_base_route(app, client):
     # app = Flask(__name__)
     # api = Api(app, catch_all_404s=True)
@@ -22,8 +22,8 @@ def test_base_route(app, client):
     url = '/'
 
     response = client.get(url)
-    assert response.headers[1] == ('Content-Length', '37')
-    assert response.status_code == 500
+    assert response.headers[1] == ('Content-Length', '17')
+    assert response.status_code == 200
 
 
 #----------2-----------
