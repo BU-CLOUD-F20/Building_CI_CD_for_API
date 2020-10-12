@@ -1,4 +1,4 @@
-from .link import LinkAPI, BaseAPI
+from .link import LinkAPI
 
 
 def initialize_routes(api):
