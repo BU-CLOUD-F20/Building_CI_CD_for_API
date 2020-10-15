@@ -106,14 +106,13 @@ Manually deploying a pipeline or application on AWS (or any cloud provider) is b
 
   - [Using AWS CodeDeploy](https://www.youtube.com/watch?v=zkNdHv1iMgY)
 
-  
 
-  #### Conclusion
 
-  These competitors show various ways to improve CI/CD workflow. Some common flows are comprehensive user console, auto run testing, auto deployment and much more. By learning from them, we choose to also include auto testing and deployment into our product. However, a lot of these competitors’ services have limitations such as not being open source, not free, limited options and high learning curve. While having similar features in our pipelines, we will also pay close attention to user stories. For instance, since most developers are tied to the GitHub ecosystem, we choose to use Github actions for our CI to minimize the user learning curve. Moreover, our product is open source, free to use, and can be self-hosted. 
+#### Conclusion
 
-  
+These competitors show various ways to improve CI/CD workflow. Some common flows are comprehensive user console, auto run testing, auto deployment and much more. By learning from them, we choose to also include auto testing and deployment into our product. However, a lot of these competitors’ services have limitations such as not being open source, not free, limited options and high learning curve. While having similar features in our pipelines, we will also pay close attention to user stories. For instance, since most developers are tied to the GitHub ecosystem, we choose to use Github actions for our CI to minimize the user learning curve. Moreover, our product is open source, free to use, and can be self-hosted. 
 
-  
 
-  
+
+
+
