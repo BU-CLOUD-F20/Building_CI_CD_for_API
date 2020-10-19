@@ -1,9 +1,9 @@
-name: PyTest
+name: Test Coverage
 
 on: [push]
 
 jobs:
-  pyTest:
+  testCoverage:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -17,4 +17,4 @@ jobs:
         path: "./requirements.txt"
     - name: Test with pytest
       run: |
-        pytest -vv -W ignore::DeprecationWarning
+        pytest -vv --cov=backend/resources -W ignore::DeprecationWarning
