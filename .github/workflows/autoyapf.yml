@@ -1,10 +1,10 @@
-name: Formatting python code
+name: Formatting Python Code
 on:
   push:
     paths:
     - '**.py'
 jobs:
-  autoyapf:
+  formatPython:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
