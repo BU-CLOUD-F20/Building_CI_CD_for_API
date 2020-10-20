@@ -1,7 +1,6 @@
 name: Formatting Python Code
-on:
-  push:
-    paths:
+on: [push, pull_request]
+  paths:
     - '**.py'
 jobs:
   formatPython:
