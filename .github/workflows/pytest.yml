@@ -17,4 +17,4 @@ jobs:
           path: "./requirements.txt"
       - name: Test with pytest
         run: |
-          pytest -vv --cov=backend/resources -W ignore::DeprecationWarning
+          pytest -vv --cov=backend/resources --cov-report=xml -W ignore::DeprecationWarning
