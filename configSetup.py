@@ -40,7 +40,8 @@ def prompt_creds():
 
     GH_REPO_OWNER = input("Enter GitHub repo owner: ")
     GH_REPO_NAME = input("Enter GitHub repo name: ")
-    GH_ACCESS_TOKEN = input("Please provide your GitHub Personal Access Token (with repo scope): ")
+    GH_ACCESS_TOKEN = input(
+        "Please provide your GitHub Personal Access Token (with repo scope): ")
     OC_SERVER_URL = input("Please provide your OpenShift Server URL: ")
     OC_API_TOKEN = input("Please provide your OpenShift API Token: ")
 
@@ -50,7 +51,8 @@ def encrypt(public_key, secret_value):
         Encrypt a Unicode string using the public key.
     """
 
-    public_key = public.PublicKey(public_key.encode("utf-8"), encoding.Base64Encoder())
+    public_key = public.PublicKey(public_key.encode("utf-8"),
+                                  encoding.Base64Encoder())
     sealed_box = public.SealedBox(public_key)
     encrypted = sealed_box.encrypt(secret_value.encode("utf-8"))
 
@@ -105,14 +107,10 @@ def create_update_secrets(secrets):
             "encrypted_value": value,
         }
 
-        response = requests.put(
-            URL,
-            data=json.dumps(secret),
-            headers=headers
-        )
+        response = requests.put(URL, data=json.dumps(secret), headers=headers)
 
         if response.status_code == 201 or response.status_code == 204:
-            print("="*10,"Created/Updated secret.", "="*10)
+            print("=" * 10, "Created/Updated secret.", "=" * 10)
 
 
 def show_secrets():
