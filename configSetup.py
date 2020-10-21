@@ -37,13 +37,83 @@ def prompt_creds():
     OC_API_TOKEN = input("Please provide your OpenShift API Token: ")
 
 
-def encrypt(public_key: str, secret_value: str) -> str:
-    """Encrypt a Unicode string using the public key."""
+def encrypt(public_key, secret_value):
+    """
+    Encrypt a Unicode string using the public key.
+    """
+
     public_key = public.PublicKey(public_key.encode("utf-8"), encoding.Base64Encoder())
     sealed_box = public.SealedBox(public_key)
     encrypted = sealed_box.encrypt(secret_value.encode("utf-8"))
 
     return b64encode(encrypted).decode("utf-8")
+
+
+def configure_secrets():
+    global GH_PUBLIC_KEY
+    global GH_PUBLIC_KEY_ID
+
+    headers = {"Authorization": "token " + GH_ACCESS_TOKEN}
+    URL = f"https://api.github.com/repos/{GH_REPO_OWNER}/{GH_REPO_NAME}/actions/secrets/public-key"
+
+    response = requests.get(URL, headers=headers)
+    public_key = json.loads(response.text)
+    GH_PUBLIC_KEY_ID = public_key["key_id"]
+    GH_PUBLIC_KEY = public_key["key"]
+
+
+def generate_encrypted_secrets():
+    """
+    Generate the encrypted secrets
+    """
+    global ENCRYPTED_OC_SERVER_URL
+    global ENCRYPTED_OC_API_TOKEN
+
+    secrets = {}
+    ENCRYPTED_OC_SERVER_URL = encrypt(GH_PUBLIC_KEY, OC_SERVER_URL)
+    ENCRYPTED_OC_API_TOKEN = encrypt(GH_PUBLIC_KEY, OC_API_TOKEN)
+    secrets["OC_SERVER_URL"] = ENCRYPTED_OC_SERVER_URL
+    secrets["OC_API_TOKEN"] = ENCRYPTED_OC_API_TOKEN
+
+    return secrets
+
+
+def create_update_secrets(secrets):
+    """
+    Create/Update secrets to current GitHub repo
+
+    Args:
+        secrets (dict): [dict contains all secret configuratoins]
+    """
+
+    for key, value in secrets.items():
+        headers = {
+            "Authorization": "token " + GH_ACCESS_TOKEN,
+            "Content-Type": "application/json",
+        }
+        URL = f"https://api.github.com/repos/{GH_REPO_OWNER}/{GH_REPO_NAME}/actions/secrets/{key}"
+        secret = {
+            "key_id": GH_PUBLIC_KEY_ID,
+            "encrypted_value": value,
+        }
+
+        response = requests.put(URL, data=json.dumps(secret), headers=headers)
+
+        if response.status_code == 201 or response.status_code == 204:
+            print("=" * 10, "Created/Updated secret.", "=" * 10)
+
+
+def show_secrets():
+    """
+    Show secrets in current repo
+    """
+    headers = {"Authorization": "token " + GH_ACCESS_TOKEN}
+    URL = f"https://api.github.com/repos/{GH_REPO_OWNER}/{GH_REPO_NAME}/actions/secrets"
+    response = requests.get(URL, headers=headers)
+    secrets = json.loads(response.text)
+
+    print("The current repo consists of following secrets: ")
+    print(secrets)
 
 
 def main():
