@@ -1,7 +1,9 @@
 name: Formatting Python Code
-on: [push, pull_request]
+
+on: pull_request
   paths:
     - '**.py'
+
 jobs:
   formatPython:
     runs-on: ubuntu-latest
