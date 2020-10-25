@@ -2,85 +2,94 @@
 
 ###### EC528
 
-###### Panat Taranat, Yan Chen, Mella Liang, Peter Wang, Kaito Yamagishi
+###### Team Members: Panat Taranat, Yan Chen, Mella Liang, Peter Wang, Kaito Yamagishi
+###### Mentors: James Colley, Surya Jayanthi, Ata Turk
 
 
 
 ## 1. Vision and Goals of the Project:
 
-Doubly is a URL shortener service that shortens URLs into easy to remember English phrases consisting of two words (one adjective followed by one noun). The key component of this project is the CI/CD pipeline that allows incremental changes to be developed, tested, verified and deployed in an automated manner. Following core DevOps principles will allow the project team to strive for continuous improvement with minimal downtime, and to respond quickly to customer feedback and insights. The service also provides access to an API that will allow users to request a short link on our domain.
+We are working on a CI/CD pipeline that can be used for API development. We will use an example of a URL shortener API as a demonstration of our pipeline, though our solution will be platform agnostic. The pipeline will allow incremental changes to be developed, tested, verified, and deployed in an automated manner. Following core DevOps principles will allow the project team to strive for continuous improvement with minimal downtime, and to respond quickly to customer feedback and insights.
 
 Important goals include:
 
-- (Almost) Fully automated setup and deployment. The entire process for a developer to make changes to the codebase should require as little manual interaction as possible. Same with someone who is looking to deploy the project with their own host.
+* (Almost) Fully automated setup and deployment. The entire process for a developer to make changes to the codebase should require as little manual interaction as possible. Same with someone who is looking to use our repo as a GitHub template for their own project.
+* The URL shortener API will be served on an attractive interface
+* Unit tests can be written and integrated into the pipeline
+* From the first deployment, the API and pipeline will have high availability
 
-- The design of the Doubly frontend interface must be polished, as well as the API documentation for the service. There must be an interactive interface that facilitates the usage, functionality, and further development of the project.
 
 ## 2. Users/Personas of the Project:
 
-Non-expert user is an individual who found a cool link on the internet and wants to shorten it to share with their friend(s). The link may be used 10s of times.
+An API user is Andy, a web developer working on his SaaS that allows users to write notes in the cloud. Andy wants to let his users be able to share links to specific notes or notebooks but the generated link system he currently has is ugly, long, and hard to remember (see notion.so). Andy reads our API documentation and forks our open source project to generate short, two word URLs for his service with his domain name. Andy’s version of the API is hosted on his own cloud provider that supports Docker images. Andy can contribute features and bug fixes back to our open source project, thanks to our CI/CD pipeline.
 
-Expert or commercial user is an entity that shortens a link to their brand or resource for the general public. This link may be used hundreds or thousands of times. They may also be experts in using the API to fit the service to their needs.
+A user of the CI/CD pipeline is Brian, a participant in a hackathon. Brian is working on a prototype of his team’s web application. To save time, Brian uses our GitHub Template Repository as a starting point for his project. He can add on additional functionality by choosing Actions from the GitHub marketplace. Although our project is set-up to deploy on MOC OpenShift, Brian can easily change his deployment to AWS or Heroku.
 
-One example of a non-expert user is Sharon, a PhD researcher who found an interesting research article. Rather than sharing the DOI (Digital Object Identifier), she needs an easy to remember mnemonic link to share with her colleagues during a brown bag meeting. It improves the experience of content sharing and allows users to keep track of what they have shared.
-
-One example of an expert commercial user is a small business that has social media presence as well as a blog on their own website. David runs a landscaping business with a strong Instagram presence. Using Doubly, David shares links to specific articles in his Instagram stories or posts that his audience can easily type up. The link will be clicked through frequently in proportion to David’s audience size and reach. Link management and analytics will provide him with insights about his target demographic and the effectiveness of his advertising platforms.
-
-One example of an expert API user is Andy, a web developer working on his SaaS startup that allows users to write notes in the cloud. Andy wants to let his users be able to share links to specific notes or notebooks but the generated link system he currently has is ugly, long, and hard to remember (see notion.so). Andy reads our API documentation and forks our open source project to generate short, two word URLs for his service with his domain name. Andy’s version of the API is hosted on his own cloud provider that supports Docker images. Andy can contribute features and bug fixes back to the Doubly open source project, thanks to our CI/CD pipeline.
 
 ## 3. Scope and Features of the Project:
 
-**In-Scope Features:**
+**In-Scope Features**
 
-- Given a valid URL, our service will generate a shorter and uniquely identifiable alias of it, consisting of two or more words. This will henceforth be referred as a *short link*
+* Allow adding and running of unit tests in CI
+* Easy installation and configuration of the pipeline, can be customized to different projects and hosts
+* Extensible in functionality, either by using Actions from GitHub marketplace or writing own Actions
+* The API being developed should have high availability, a failed test should not bring down the service
+* Every commit or pull-request by a developer will go through CI/CD pipeline, must pass all tests before being deployed
+* Failed builds and tests will alert developers
+* Ensure the security of secrets and sensitive data/tokens in the pipeline
 
-- When users access a short link, our service will redirect them to the original link in real time with minimal latencyShort links should be generated randomly and not predictable
+**Out-of-Scope Features (not delivered as part of MVP)**
 
-- The service should have high availability, facilitated by CI/CD and DevOps principles
+* Backwards compatibility with Jenkins
+* Dashboard interface for developers to see problems and status of CI/CD pipeline
+* The URL shortener API is a demonstration, so extensive development or design of the shortener API is not in scope
 
-- Short links will expire after a default timespan
-
-- Every commit or pull-request by a developer will go through CI/CD pipeline, must pass all tests before being deployed
-
-- The short link must be easy to understand, pronounce, and spell, with no offensive words or combinations (accomplished by choosing a good dictionary)
-
-  
-
-**Out-of-Scope Features: (not delivered as part of MVP):**
-
-- We may allow the creation of custom short link (choose words)
-- We may provide in depth link analytics such as originating location or referrer (Email, SMS, Direct, 3rd-party websites)
-- We may work on a Chrome extension or browser plugin. The only way to use our service is by navigating to our website or using our API
-- We may allow users to specify a custom expiration time
-- We may allow the creation of an account for link management, which includes the ability to: 
-  - Organize all links created by this account
-  - Edit the title of the short link (but not the generated two word back half)
-  - Redirect the short link to a different URL
-  - View the total clicks
-- We may have bookmarklet to turn the current URL into a Doubly shortened URL (using our API), and save to clipboard (similar to Instapaper JS bookmarklet)
 
 ## 4. Solution Concept
 
 The system components of the architectural design is as follows:
-- Python Flask backend for providing REST APIs that allow frontend to consume
-- React front end for service’s user interface
-- Nginx load balancer, among client-application, application-database, application-cache
-- GitHub Actions for CI/CD pipeline
-- Ubuntu docker image for development environment
-- OpenShift on MOC for hosting
+* Python Flask backend for providing REST APIs that allow frontend to consume
+* React front end for service’s user interface
+* Nginx load balancer, among client-application, application-database, application-cache
+* GitHub Actions for CI/CD pipeline
+* Ubuntu docker image for development environment
+* OpenShift on MOC for hosting
+* Build Server, builds docker images of Flask app from Dockerfile
+* Test server, for running smoke, unit, integration tests
 
-<img src="diagram.png">
 
-In the diagram, when developers make any changes in the code and the commits are pushed to GitHub, GitHub Actions triggers the CI workflow. It builds the project with the changed contents, runs integration and unit tests, and then provides results of the tests in the pull request. If the changes introduce errors, the developer can go back to debugging. If there are no errors from the tests, the change is ready to be reviewed by another team member. When the team member approves the changes, from here it is the CD workflow. The changes get reflected to the staging server, then if there are no problems here too, the changes will be deployed to the production server hosted on MOC using OpenShift. This server is running Nginx, load balancing the server’s resource availability and efficiency.
+<img src="assets/diagram.png">
 
-The client is the website that allows users to interact with service. It sends API requests to the server. To shorten a link, the client sends a POST request containing the original URL to the server. The server runs an algorithm to shorten the link, stores data related to the link in the database, and sends back the shortened link. When a user enters a shortened link on a browser, a GET request is sent to the server, to send back the original link by searching in the database, which directs the user to the website. In this case, a browser is also a client in this diagram. A user is also allowed to delete the shortened link on the host website, or the server deletes the link once the expiration date is reached.Design decisions for the architecture were made with compatibility in mind. After consulting the possible choices for the architecture from our mentors and some of our friends, some of our team members researched and scanned through each documentation and reported back to the group. From there, we checked which element with which element is compatible, and made a decision. Difficulty of developing is another component we had in mind while making decisions for the architecture, we wanted to keep things simple so went with a simple Flask API on Python with some UI libraries we can potentially use for the frontend.
+In the diagram, when developers make any changes in the code and the commits are pushed to GitHub, GitHub Actions triggers the CI workflow. It builds the project with the changed contents, runs integration and unit tests, and then provides results of the tests in the pull request. If the changes introduce errors, the developer can go back to debugging. If there are no errors from the tests, the change is ready to be reviewed by another team member. When the team member approves the changes, from here it is the CD workflow. The changes get reflected to the staging server, then if there are no problems, the changes will be deployed to the production server hosted on MOC using OpenShift. This server is running Nginx, load balancing the server’s resource availability and efficiency.
+
+We will be developing unit tests alongside the development of the URL shortener. These tests will allow us to verify the proper function of various system components, such as backend and frontend.
+
+Design decisions for the architecture were made with usability and ease of development in mind. We compared the features of GitHub Actions to Jenkins and found the following:
+
+**GH Actions**
+
+* Better community support and bigger extension marketplace than Jenkins
+* Uses common scripting languages, JS and bash
+* Infrastructure as Code, our workflow defines the process
+* Built-in integration with GitHub, useful for many open source projects
+
+**Jenkins**
+* Very mature, over 9 years old, with lots of documentation and answered questions
+* Highly extensible, but some plugins are poorly maintained or has conflicts
+* Uses master/node relationships
+* Need to learn Groovy script (Java-like syntax)
+* High support overhead, we will need at least one person dedicated to Jenkins always
+
+We assume that many developers of open source projects are familiar with the GitHub ecosystem, so using GitHub Actions, Packages, and Templates will increase our reach as well as ease-of-use. GH Actions also has built-in integrations with common deployment targets, like AWS, Azure, Heroku, and Google Cloud.
 
 ## 5. Acceptance Criteria
 
-Minimum Acceptance criteria is a cloud service that consists of a simple UI that communicates with URL shortener API to provide a shortened URL to the user. Stretch goals are:
-- Provide user with link management, analytics, and account creation
-- Allow user to create a custom short link
-- Extend the service into a browser plugin or bookmarklet
+Minimum acceptance criteria is a CI/CD pipeline for an API developed and tested with our example URL shortener API. It will detect all commits and pull requests in a GitHub repository, and run the pipeline defined by our GitHub actions configurations. This will build a docker image, run tests, and deploy the changes to a running production server with no stoppage.
+
+* Push to production is one-click, fully automated
+* Any code that does not build or passes tests will not make it to production
+* Generic and extensible, can be easily implemented by an API developer using Flask/Python
+
 
 ## 6. Release Planning:
 
@@ -94,18 +103,43 @@ Release 1 (Deadline: Sept. 27, Demo: Oct. 1)
   - Put route to change URL to different shortened link
 - CI/CD pipeline
   - Make final decisions on technologies and implement them with code
+  - Set up a GitHub actions workflow that will detect a push (source) then cause some action
+  - Explore added options on the yaml file
+  - Explore tests: write tests on PyTest, implement on GitHub actions and successfully accept/reject new pushes to the repository
 - Back end testing on API codeTest each API route, write different test cases
+- Decide on a NoSQL database (leaning toward MongoDB)
+- Tests may include:
+  - Formatting using pep8
+  - Token-based authentication
+  - Test short link generation
+  - Test API routes
 - Decide on a NoSQL database (leaning toward MongoDB)
 
 Release 2 (Deadline: Oct. 11, Demo: Oct. 15)
 - Functional UI interface for core features
-- Front end tests and additional back end testing
+- Unit tests for front end and back end
+- CI/CD pipeline
+  - Create build stage that creates a docker container with the contents that was updated
+  - Make sure the source is getting past the build stage
+  - Work on deploy stages
+    - First host on the staging server, then after final confirmation deploy to production
+- At this point, core features of the API and the CI/CD pipeline should be functional and highly available
+
 
 Release 3 (Deadline: Oct. 25, Demo: Oct. 29)
+- This release will focus on tuning performance and testing
 - Add cache for frequently used links + unit testing
+- CI/CD pipeline
+  - Work on test stage; write, debug and run the test files
+  - Implement smoke, unit and integration testing
 
 Release 4 (Deadline: Nov. 8, Demo: Nov. 12)
 - Attempt to add Out-of-Scope features + integration testing
+- CI/CD pipeline
+  - Explore the extensibility and application of our pipeline to other projects
+  - Work on areas that need improvement for better usability
 
 Release 5 (Deadline: Nov. 29, Demo: Dec. 3)
 - Ensure every part of project is functional, stable, and verified
+- Check current state of product with MVP, acceptance criteria
+- Complete documentation on how to use our pipeline in other projects
