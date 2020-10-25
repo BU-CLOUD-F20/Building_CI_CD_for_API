@@ -1,8 +1,9 @@
-name: Formatting python code
-on:
-  push:
-    paths:
-    - '**.py'
+name: Formatting Python Code
+
+on: [push, pull_request]
+paths:
+  - '**.py'
+
 jobs:
   autoyapf:
     runs-on: ubuntu-latest
