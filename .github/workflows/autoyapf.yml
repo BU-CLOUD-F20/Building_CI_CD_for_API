@@ -1,8 +1,9 @@
 name: Formatting Python Code
 
-on: push
-  paths:
-    - '**.py'
+on:
+  push:
+    paths:
+      - '**.py'
 
 jobs:
   autoyapf:
