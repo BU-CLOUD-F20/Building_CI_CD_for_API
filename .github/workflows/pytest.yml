@@ -3,7 +3,7 @@ name: PyTest
 on: push
 
 jobs:
-  pyTest:
+  pytest:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -17,4 +17,4 @@ jobs:
         path: "./requirements.txt"
     - name: Test with pytest
       run: |
-        pytest -vv --cov=backend/resources --cov-fail-under=90 -W ignore::DeprecationWarning
+      pytest -vv --cov=backend/resources --cov-fail-under=90 -W ignore::DeprecationWarning
