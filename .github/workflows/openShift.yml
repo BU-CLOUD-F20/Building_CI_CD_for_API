@@ -15,5 +15,5 @@ jobs:
             version: 'latest'
         - name: OC Commands
           run: |
-            oc login --token=${{ secrets.API_TOKEN }} --server=${{ secrets.OPENSHIFT_SERVER_URL }}
-            oc get pods | grep build
+            oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
+            oc start-build buildingcicdforapi --follow
