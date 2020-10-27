@@ -16,4 +16,4 @@ jobs:
         - name: OC Commands
           run: |
             oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
-            oc new-app https://github.com/BU-CLOUD-F20/Building_CI_CD_for_API.git
+            oc start-build
