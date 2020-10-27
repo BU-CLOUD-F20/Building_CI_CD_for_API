@@ -16,4 +16,4 @@ jobs:
         - name: OC Commands
           run: |
             oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
-            oc expose svc/buildingcicdforapi
+            oc start-build buildingcicdforapi --follow
