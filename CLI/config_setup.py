@@ -26,6 +26,7 @@ def greeting():
     print("-" * 60)
     print(welcome_message + instruction)
     print("-" * 60)
+    # print() # UNCOMMENT HERE
 
 
 def prompt_creds():
@@ -108,8 +109,8 @@ def create_update_secrets(secrets):
         }
 
         response = requests.put(URL, data=json.dumps(secret), headers=headers)
-
         if response.status_code == 201 or response.status_code == 204:
+            print()
             print("=" * 10, "Created/Updated secret.", "=" * 10)
 
 
@@ -121,8 +122,8 @@ def show_secrets():
     URL = f"https://api.github.com/repos/{GH_REPO_OWNER}/{GH_REPO_NAME}/actions/secrets"
     response = requests.get(URL, headers=headers)
     secrets = json.loads(response.text)
-
-    print("The current repo consists of following secrets: ")
+    print()
+    print("-" * 5, "The current repo consists of following secrets: ", "-" * 5)
     print(secrets)
 
 
