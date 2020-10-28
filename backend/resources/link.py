@@ -39,7 +39,7 @@ class LinkAPI(Resource):
         original_link = request_data["original_link"]
         if "expire_at" in request_data:
             # add validation for date format later
-            expire_at = request_data["expire_at"]
+            expire_at = request_data["expire_at"].replace("/", "-")
         else:
             # set default expire_at to 14 days from now
             expire_at = (
@@ -64,7 +64,7 @@ class LinkAPI(Resource):
                 "original_link": original_link,
                 "expire_at": expire_at,
                 "short_link": short_link,
-                "expire_at": "date",
+                "link_id": link_id,
             }
             Link(**data).save()
             response = jsonify(data)
