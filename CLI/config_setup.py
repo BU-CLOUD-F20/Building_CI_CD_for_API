@@ -26,7 +26,7 @@ def greeting():
     print("-" * 60)
     print(welcome_message + instruction)
     print("-" * 60)
-    # print() # UNCOMMENT HERE
+    print() # UNCOMMENT HERE
 
 
 def prompt_creds():
