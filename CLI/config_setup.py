@@ -3,6 +3,7 @@ import json
 
 from base64 import b64encode
 from nacl import encoding, public
+from getpass import getpass
 
 GH_REPO_OWNER = ""
 GH_REPO_NAME = ""
@@ -17,7 +18,7 @@ ENCRYPTED_OC_API_TOKEN = ""
 
 def greeting():
     """
-        Greets the user.
+    Greets the user.
     """
 
     welcome_message = f"Hello! Thanks for using your CI/CD pipeline action.\n"
@@ -26,12 +27,12 @@ def greeting():
     print("-" * 60)
     print(welcome_message + instruction)
     print("-" * 60)
-    print() # UNCOMMENT HERE
+    print()  # UNCOMMENT HERE
 
 
 def prompt_creds():
     """
-        Prompts the user to enter required credentials.
+    Prompts the user to enter required credentials.
     """
     global GH_REPO_OWNER
     global GH_REPO_NAME
@@ -41,19 +42,19 @@ def prompt_creds():
 
     GH_REPO_OWNER = input("Enter GitHub repo owner: ")
     GH_REPO_NAME = input("Enter GitHub repo name: ")
-    GH_ACCESS_TOKEN = input(
-        "Please provide your GitHub Personal Access Token (with repo scope): ")
-    OC_SERVER_URL = input("Please provide your OpenShift Server URL: ")
-    OC_API_TOKEN = input("Please provide your OpenShift API Token: ")
+    GH_ACCESS_TOKEN = getpass(
+        prompt="Please provide your GitHub Personal Access Token (with repo scope): "
+    )
+    OC_SERVER_URL = getpass(prompt="Please provide your OpenShift Server URL: ")
+    OC_API_TOKEN = getpass(prompt="Please provide your OpenShift API Token: ")
 
 
 def encrypt(public_key, secret_value):
     """
-        Encrypt a Unicode string using the public key.
+    Encrypt a Unicode string using the public key.
     """
 
-    public_key = public.PublicKey(public_key.encode("utf-8"),
-                                  encoding.Base64Encoder())
+    public_key = public.PublicKey(public_key.encode("utf-8"), encoding.Base64Encoder())
     sealed_box = public.SealedBox(public_key)
     encrypted = sealed_box.encrypt(secret_value.encode("utf-8"))
 
@@ -75,7 +76,7 @@ def configure_secrets():
 
 def generate_encrypted_secrets():
     """
-        Generate the encrypted secrets
+    Generate the encrypted secrets
     """
     global ENCRYPTED_OC_SERVER_URL
     global ENCRYPTED_OC_API_TOKEN
@@ -100,7 +101,7 @@ def create_update_secrets(secrets):
     for key, value in secrets.items():
         headers = {
             "Authorization": "token " + GH_ACCESS_TOKEN,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         }
         URL = f"https://api.github.com/repos/{GH_REPO_OWNER}/{GH_REPO_NAME}/actions/secrets/{key}"
         secret = {
@@ -116,7 +117,7 @@ def create_update_secrets(secrets):
 
 def show_secrets():
     """
-        Show secrets in current repo
+    Show secrets in current repo
     """
     headers = {"Authorization": "token " + GH_ACCESS_TOKEN}
     URL = f"https://api.github.com/repos/{GH_REPO_OWNER}/{GH_REPO_NAME}/actions/secrets"
