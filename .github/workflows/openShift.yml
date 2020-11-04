@@ -1,0 +1,19 @@
+name: OpenShift Actions
+
+on: push
+# branches:
+#     - master
+
+jobs:
+  openShiftSetup:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v2
+        - name: OpenShift Actions
+          uses: redhat-developer/openshift-actions@v2.1.0
+          with:
+            version: 'latest'
+        - name: OC Commands
+          run: |
+            oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
+            oc start-build buildingcicdforapi --follow

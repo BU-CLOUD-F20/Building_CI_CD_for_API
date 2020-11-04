@@ -1,6 +1,10 @@
 aniso8601==8.0.0
 atomicwrites==1.4.0
 attrs==20.2.0
+autopep8==1.5.4
+certifi==2020.6.20
+cffi==1.14.3
+chardet==3.0.4
 click==7.1.2
 colorama==0.4.3
 dnspython==2.0.0
@@ -9,6 +13,7 @@ Flask-Cors==3.0.9
 flask-mongoengine==0.9.5
 Flask-RESTful==0.3.8
 Flask-WTF==0.14.3
+idna==2.10
 importlib-metadata==2.0.0
 iniconfig==1.0.1
 itsdangerous==1.1.0
@@ -18,12 +23,17 @@ mongoengine==0.20.0
 packaging==20.4
 pluggy==0.13.1
 py==1.9.0
+pycodestyle==2.6.0
+pycparser==2.20
 pymongo==3.11.0
+PyNaCl==1.4.0
 pyparsing==2.4.7
 pytest==6.1.1
 pytz==2020.1
+requests==2.24.0
 six==1.15.0
 toml==0.10.1
+urllib3==1.25.11
 Werkzeug==1.0.1
 WTForms==2.3.3
 zipp==3.3.0
