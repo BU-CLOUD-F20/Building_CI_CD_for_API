@@ -3,6 +3,7 @@ import json
 
 from base64 import b64encode
 from nacl import encoding, public
+from getpass import getpass
 
 GH_REPO_OWNER = ""
 GH_REPO_NAME = ""
@@ -26,6 +27,7 @@ def greeting():
     print("-" * 60)
     print(welcome_message + instruction)
     print("-" * 60)
+    print() # UNCOMMENT HERE
 
 
 def prompt_creds():
@@ -40,10 +42,10 @@ def prompt_creds():
 
     GH_REPO_OWNER = input("Enter GitHub repo owner: ")
     GH_REPO_NAME = input("Enter GitHub repo name: ")
-    GH_ACCESS_TOKEN = input(
-        "Please provide your GitHub Personal Access Token (with repo scope): ")
-    OC_SERVER_URL = input("Please provide your OpenShift Server URL: ")
-    OC_API_TOKEN = input("Please provide your OpenShift API Token: ")
+    GH_ACCESS_TOKEN = getpass(
+        prompt="Please provide your GitHub Personal Access Token (with repo scope): ")
+    OC_SERVER_URL = getpass(prompt="Please provide your OpenShift Server URL: ")
+    OC_API_TOKEN = getpass(prompt="Please provide your OpenShift API Token: ")
 
 
 def encrypt(public_key, secret_value):
@@ -108,8 +110,8 @@ def create_update_secrets(secrets):
         }
 
         response = requests.put(URL, data=json.dumps(secret), headers=headers)
-
         if response.status_code == 201 or response.status_code == 204:
+            print()
             print("=" * 10, "Created/Updated secret.", "=" * 10)
 
 
@@ -121,8 +123,8 @@ def show_secrets():
     URL = f"https://api.github.com/repos/{GH_REPO_OWNER}/{GH_REPO_NAME}/actions/secrets"
     response = requests.get(URL, headers=headers)
     secrets = json.loads(response.text)
-
-    print("The current repo consists of following secrets: ")
+    print()
+    print("-" * 5, "The current repo consists of following secrets: ", "-" * 5)
     print(secrets)
 
 

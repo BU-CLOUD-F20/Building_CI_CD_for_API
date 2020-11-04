@@ -1,12 +1,12 @@
 name: Formatting Python Code
 
 on:
-  push:
+  pull_request:
     paths:
       - '**.py'
 
 jobs:
-  autoyapf:
+  formatPython:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
