@@ -43,9 +43,10 @@ def prompt_creds():
     GH_REPO_OWNER = input("Enter GitHub repo owner: ")
     GH_REPO_NAME = input("Enter GitHub repo name: ")
     GH_ACCESS_TOKEN = getpass(
-        prompt="Please provide your GitHub Personal Access Token (with repo scope): "
-    )
-    OC_SERVER_URL = getpass(prompt="Please provide your OpenShift Server URL: ")
+        prompt=
+        "Please provide your GitHub Personal Access Token (with repo scope): ")
+    OC_SERVER_URL = getpass(
+        prompt="Please provide your OpenShift Server URL: ")
     OC_API_TOKEN = getpass(prompt="Please provide your OpenShift API Token: ")
 
 
