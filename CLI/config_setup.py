@@ -119,69 +119,22 @@ def show_secrets():
     """
     Show secrets in current repo
     """
-    headers = {"Authorization": "token " + GH_ACCESS_TOKEN,
-    }
+    headers = {"Authorization": "token " + GH_ACCESS_TOKEN}
     URL = f"https://api.github.com/repos/{GH_REPO_OWNER}/{GH_REPO_NAME}/actions/secrets"
     response = requests.get(URL, headers=headers)
     secrets = json.loads(response.text)
     print()
     print("-" * 5, "The current repo consists of following secrets: ", "-" * 5)
-    print(json.dumps(secrets, indent=4, sort_keys=True))
+    print(secrets)
 
-def show_GHA_logs():
-
-    """
-        Show Github action logs
-    """
-
-
-    headers = {"Authorization": "token " + GH_ACCESS_TOKEN}
-    params = {    'owner': 'BU-CLOUD-F20',
-    'repo': 'Building_CI_CD_for_API',
-    'run_id': 1324371347  }
-# check suite id 
-    check_suites_URL = f"https://api.github.com/repos/{GH_REPO_OWNER}/{GH_REPO_NAME}/commits/master/check-suites"
-    response = requests.get(check_suites_URL)
-    secrets = json.loads(response.text)
-    print(check_suites_URL)
-    print("-" * 5, "The 'check_suites' id is : ", "-" * 5)
-    check_suites_ID = secrets['check_suites'][0]['id']
-    print(check_suites_ID)
-
-# # check_runs id
-#     check_runs_URL = f"https://api.github.com/repos/{GH_REPO_OWNER}/{GH_REPO_NAME}/check-suites/{check_suites_ID}/check-runs"
-#     response = requests.get(check_runs_URL)
-#     secrets = json.loads(response.text)
-#     print(check_runs_URL)
-#     print("-" * 5, "The 'check_runs' id is : ", "-" * 5)
-#     check_runs_id = secrets['check_runs'][0]['id']
-#     print(check_runs_id)
-
-# list of jobs of workflow runs
-    check_jobs_URL = f"https://api.github.com/repos/{GH_REPO_OWNER}/{GH_REPO_NAME}/actions/runs/41/jobs"
-    response = requests.get(check_jobs_URL, headers=headers)
-    secrets = json.loads(response.text)
-    print(check_jobs_URL)
-    print("-" * 5, "The List of jobs are : ", "-" * 5)
-    print(json.dumps(secrets, indent=4, sort_keys=True))
-    # check_runs_id = secrets['check_runs'][0]['id']
-    # print(check_runs_id)
-
-    # URL = f"https://api.github.com/repos/{GH_REPO_OWNER}/{GH_REPO_NAME}/actions/secrets"
-    # response = requests.get(URL, headers=headers)
-    # secrets = json.loads(response.text)
-    # print()
-    # print("-" * 5, "The current repo consists of following secrets: ", "-" * 5)
-    # print(secrets)
 
 def main():
-    # greeting()
-    # prompt_creds()
-    # configure_secrets()
-    # secrets = generate_encrypted_secrets()
-    # create_update_secrets(secrets)
-    # show_secrets()
-    show_GHA_logs()
+    greeting()
+    prompt_creds()
+    configure_secrets()
+    secrets = generate_encrypted_secrets()
+    create_update_secrets(secrets)
+    show_secrets()
 
 
 main()
