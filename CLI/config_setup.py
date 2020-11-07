@@ -129,9 +129,7 @@ def show_secrets():
     print(json.dumps(secrets, indent=4, sort_keys=True))
 
 def show_GHA_logs():
-    GH_ACCESS_TOKEN = 'f12bdc5a3a704df0b37176185c42724a1a40900a'
-    GH_REPO_OWNER = 'BU-CLOUD-F20'
-    GH_REPO_NAME = 'Building_CI_CD_for_API'
+
     """
         Show Github action logs
     """
@@ -150,18 +148,18 @@ def show_GHA_logs():
     check_suites_ID = secrets['check_suites'][0]['id']
     print(check_suites_ID)
 
-# check_runs id
-    check_runs_URL = f"https://api.github.com/repos/{GH_REPO_OWNER}/{GH_REPO_NAME}/check-suites/{check_suites_ID}/check-runs"
-    response = requests.get(check_runs_URL)
-    secrets = json.loads(response.text)
-    print(check_runs_URL)
-    print("-" * 5, "The 'check_runs' id is : ", "-" * 5)
-    check_runs_id = secrets['check_runs'][0]['id']
-    print(check_runs_id)
+# # check_runs id
+#     check_runs_URL = f"https://api.github.com/repos/{GH_REPO_OWNER}/{GH_REPO_NAME}/check-suites/{check_suites_ID}/check-runs"
+#     response = requests.get(check_runs_URL)
+#     secrets = json.loads(response.text)
+#     print(check_runs_URL)
+#     print("-" * 5, "The 'check_runs' id is : ", "-" * 5)
+#     check_runs_id = secrets['check_runs'][0]['id']
+#     print(check_runs_id)
 
 # list of jobs of workflow runs
-    check_jobs_URL = f"https://api.github.com/repos/{GH_REPO_OWNER}/{GH_REPO_NAME}/actions/runs/{check_runs_id}/jobs"
-    response = requests.get(check_jobs_URL, headers=headers, params=params)
+    check_jobs_URL = f"https://api.github.com/repos/{GH_REPO_OWNER}/{GH_REPO_NAME}/actions/runs/41/jobs"
+    response = requests.get(check_jobs_URL, headers=headers)
     secrets = json.loads(response.text)
     print(check_jobs_URL)
     print("-" * 5, "The List of jobs are : ", "-" * 5)
@@ -177,13 +175,13 @@ def show_GHA_logs():
     # print(secrets)
 
 def main():
-    greeting()
-    prompt_creds()
-    configure_secrets()
-    secrets = generate_encrypted_secrets()
-    create_update_secrets(secrets)
-    show_secrets()
-    # show_GHA_logs()
+    # greeting()
+    # prompt_creds()
+    # configure_secrets()
+    # secrets = generate_encrypted_secrets()
+    # create_update_secrets(secrets)
+    # show_secrets()
+    show_GHA_logs()
 
 
 main()
