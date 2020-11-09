@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   pull_request:
     branches:
-      - master
+      - staging
 
 jobs:
   formatting:
@@ -46,18 +46,28 @@ jobs:
     - name: Test with pytest
       run: |
         pytest -vv --cov=backend/resources --cov-fail-under=90 -W ignore::DeprecationWarning
-  openShiftSetup:
+  # openShiftSetup:
+  #   needs: pyTest
+  #   name: Deployment to OpenShift
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #       - uses: actions/checkout@v2
+  #       - name: OpenShift Actions
+  #         uses: redhat-developer/openshift-actions@v2.1.0
+  #         with:
+  #           version: 'latest'
+  #       - name: OC Commands
+  #         run: |
+  #           oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
+  #           oc start-build buildingcicdforapi --follow
+  automerge:
     needs: pyTest
-    name: Deployment to OpenShift
+    name: Merging Pull Request
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v2
-        - name: OpenShift Actions
-          uses: redhat-developer/openshift-actions@v2.1.0
-          with:
-            version: 'latest'
-        - name: OC Commands
-          run: |
-            oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
-            oc start-build buildingcicdforapi --follow
-          
+      - name: Merge Pull Request
+        uses: "pascalgn/automerge-action@v0.12.0"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_LABELS: ""
+          MERGE_COMMIT_MESSAGE: "pull-request-title"
