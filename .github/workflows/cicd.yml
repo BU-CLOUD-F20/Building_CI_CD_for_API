@@ -62,11 +62,11 @@ jobs:
   #           oc start-build buildingcicdforapi --follow
   approvePullRequest:
     needs: pyTest
-    name: Approving Pull Request
+    name: Merging Pull Request
     runs-on: ubuntu-latest
     steps:
-    - name: Approve Pull Request
-      uses: juliangruber/approve-pull-request-action@v1
+    - name: Merge Pull Request
+      uses: juliangruber/merge-pull-request-action@v1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         number: 1
