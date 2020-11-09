@@ -63,6 +63,7 @@ jobs:
   approvePullRequest:
     needs: pyTest
     name: Approving Pull Request
+    runs-on: ubuntu-latest
     steps:
     - name: Approve Pull Request
       uses: juliangruber/approve-pull-request-action@v1
