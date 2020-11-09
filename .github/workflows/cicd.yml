@@ -46,17 +46,26 @@ jobs:
     - name: Test with pytest
       run: |
         pytest -vv --cov=backend/resources --cov-fail-under=90 -W ignore::DeprecationWarning
-  openShiftSetup:
+  # openShiftSetup:
+  #   needs: pyTest
+  #   name: Deployment to OpenShift
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #       - uses: actions/checkout@v2
+  #       - name: OpenShift Actions
+  #         uses: redhat-developer/openshift-actions@v2.1.0
+  #         with:
+  #           version: 'latest'
+  #       - name: OC Commands
+  #         run: |
+  #           oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
+  #           oc start-build buildingcicdforapi --follow
+  approvePullRequest:
     needs: pyTest
-    name: Deployment to OpenShift
-    runs-on: ubuntu-latest
+    name: Approving Pull Request
     steps:
-        - uses: actions/checkout@v2
-        - name: OpenShift Actions
-          uses: redhat-developer/openshift-actions@v2.1.0
-          with:
-            version: 'latest'
-        - name: OC Commands
-          run: |
-            oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
-            oc start-build buildingcicdforapi --follow
+    - name: Approve Pull Request
+      uses: juliangruber/approve-pull-request-action@v1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        number: 1
