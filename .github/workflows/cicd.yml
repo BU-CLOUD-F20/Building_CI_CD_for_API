@@ -31,7 +31,7 @@ jobs:
           git push
   pyTest:
     needs: formatting
-    name: Unit Testing - PyTest
+    name: Unit Test - PyTest
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -46,23 +46,9 @@ jobs:
     - name: Test with pytest
       run: |
         pytest -vv --cov=backend/resources --cov-fail-under=90 -W ignore::DeprecationWarning
-  # openShiftSetup:
-  #   needs: pyTest
-  #   name: Deployment to OpenShift
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #       - uses: actions/checkout@v2
-  #       - name: OpenShift Actions
-  #         uses: redhat-developer/openshift-actions@v2.1.0
-  #         with:
-  #           version: 'latest'
-  #       - name: OC Commands
-  #         run: |
-  #           oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
-  #           oc start-build buildingcicdforapi --follow
-  automerge:
+  autoMerge:
     needs: pyTest
-    name: Merging Pull Request
+    name: Merging Pull Request to Staging
     runs-on: ubuntu-latest
     steps:
       - name: Merge Pull Request
@@ -71,3 +57,17 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_LABELS: ""
           MERGE_COMMIT_MESSAGE: "pull-request-title"
+  openShiftDeploy:
+    needs: autoMerge
+    name: Integration Test - Staging Deployment
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v2
+        - name: OpenShift Actions
+          uses: redhat-developer/openshift-actions@v2.1.0
+          with:
+            version: 'latest'
+        - name: OC Commands
+          run: |
+            oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
+            oc start-build staging --follow
