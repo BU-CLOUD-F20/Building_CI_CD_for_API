@@ -1,9 +1,6 @@
-name: CI/CD Pipeline
+name: Continuous Integration Pipeline
 
-on:
-  pull_request:
-    branches:
-      - master
+on: pull_request
 
 jobs:
   formatting:
