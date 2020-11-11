@@ -46,18 +46,6 @@ jobs:
       run: |
         pytest -vv --cov=backend/resources --cov-fail-under=90 -W ignore::DeprecationWarning
 
-  # autoMerge:
-  #   needs: pyTest
-  #   name: Merging Pull Request to Staging 
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Merging PR feature -> staging
-  #       uses: "pascalgn/automerge-action@v0.12.0"
-  #       env:
-  #         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-  #         MERGE_LABELS: ""
-  #         MERGE_COMMIT_MESSAGE: "pull-request-title"
-
   deployForIT:
     needs: pyTest
     name: Deploying Branch to OpenShift for IT
@@ -72,20 +60,6 @@ jobs:
           run: |
             oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
             oc new-app https://www.github.com/${{ github.repository }}#${{ github.head_ref }} --name=${{ github.head_ref }}
-
-  # pullRequestToProduction:
-  #   needs: integrationTest
-  #   name: Creating Pull Request to Master Branch
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - name: Creating PR staging -> master
-  #     uses: repo-sync/pull-request@v2
-  #     with:
-  #       source_branch: "staging"
-  #       destination_branch: "master"
-  #       pr_title: "UT/IT complete, ${{ github.ref }} into master"
-  #       github_token: ${{ secrets.GITHUB_TOKEN }}
 
   cleaningOC:
     needs: deployForIT
