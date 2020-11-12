@@ -54,6 +54,9 @@ The system components of the architectural design is as follows:
 * Docker for containerizing web app
 * OpenShift on MOC for hosting production app and testing environment (integration, load/stress)
 
+Majority of our code will be in the CLI tool for generating GitHub Action workflow files.  
+Development of the CLI tool is being done at https://github.com/yanchen01/cicd-cli
+
 
 <img src="assets/diagram.png">
 
