@@ -68,7 +68,7 @@ jobs:
           uses: redhat-developer/openshift-actions@v2.1.0
           with:
             version: 'latest'
-        - name: Executing OC commands
+        - name: Executing OpenShift commands
           run: |
             oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
             oc delete all --selector app=${{ github.head_ref }}
