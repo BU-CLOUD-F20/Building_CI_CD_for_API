@@ -1,0 +1,61 @@
+# name: Continuous Integration Pipeline
+
+# on: pull_request
+
+# jobs:
+#   formatting:
+#     name: Black Formatting
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: lgeiger/black-action@master
+#         with:
+#           args: .
+
+#   pyTest:
+#     needs: formatting
+#     name: Unit Test - PyTest
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Setting up Python 3.6
+#       uses: actions/setup-python@v2
+#       with:
+#         python-version: 3.6
+#     - name: Installing Python dependencies from requirements.txt
+#       uses: py-actions/py-dependency-install@v2
+#       with:
+#         path: "./requirements.txt"
+#     - name: Testing with PyTest
+#       run: |
+#         pytest -vv --cov=backend/resources --cov-fail-under=90 -W ignore::DeprecationWarning
+
+#   deployForIT:
+#     needs: pyTest
+#     name: Deploying Branch to OpenShift for IT
+#     runs-on: ubuntu-latest
+#     steps:
+#         - uses: actions/checkout@v2
+#         - name: Setting up OpenShift Actions
+#           uses: redhat-developer/openshift-actions@v2.1.0
+#           with:
+#             version: 'latest'
+#         - name: Executing OC commands
+#           run: |
+#             oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
+#             oc new-app https://www.github.com/${{ github.repository }}#${{ github.head_ref }} --name=${{ github.head_ref }}
+
+#   cleaningOC:
+#     needs: deployForIT
+#     name: Cleaning OpenShift Env
+#     runs-on: ubuntu-latest
+#     steps:
+#         - uses: actions/checkout@v2
+#         - name: Setting up OpenShift Actions
+#           uses: redhat-developer/openshift-actions@v2.1.0
+#           with:
+#             version: 'latest'
+#         - name: Executing OpenShift commands
+#           run: |
+#             oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
+#             oc delete all --selector app=${{ github.head_ref }}
