@@ -45,7 +45,7 @@ jobs:
 
   deployForIT:
     needs: pyTest
-    name: Deploying Branch to OpenShift for IT
+    name: Deploying Branch to OpenShift for Testing
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
