@@ -4,7 +4,7 @@ on: pull_request
 
 jobs:
   formatting:
-    name: Formatting Python Files
+    name: Autoyapf PEP-8 Formatting
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -72,5 +72,3 @@ jobs:
           run: |
             oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
             oc delete all --selector app=${{ github.head_ref }}
-
-#test change
