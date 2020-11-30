@@ -49,6 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@v2
+        - uses: actions/core@v1.2.6
         - name: Setting up OpenShift Actions
           uses: redhat-developer/openshift-actions@v2.1.0
           with:
