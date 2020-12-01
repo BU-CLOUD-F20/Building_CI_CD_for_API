@@ -1,10 +1,8 @@
 name: Continuous Delivery Pipeline
-
-on:
+'on':
   push:
     branches:
       - master
-
 jobs:
   deployingProd:
     name: Deployment to Production
@@ -14,8 +12,11 @@ jobs:
       - name: Install OpenShift Actions
         uses: redhat-actions/oc-installer@v1
         with:
-          version: '3.11.230'
+          version: 3.11.230
       - name: Executing OC Commands
-        run: |
-            oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
-            oc start-build production --follow || oc new-app https://www.github.com/${{ github.repository }} --name=production
+        run: >
+          oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{
+          secrets.OC_SERVER_URL }}
+
+          oc start-build production --follow || oc new-app
+          https://www.github.com/${{ github.repository }} --name=production
