@@ -10,7 +10,7 @@ from datetime import date, datetime, timedelta
 # Constants
 # WEBSITE_URL = 'http://localhost:5000/'
 WEBSITE_URL = 'http://buildingcicdforapi-ece-528-building-ci-cd-for-api.k-apps.osh.massopen.cloud/'
-
+TEST_WEBSITE_URL = 'abcabc'
 
 class BaseAPI(Resource):
     def get(self):
