@@ -23,7 +23,7 @@ config_secrets() {
 # Ask user for development environment
 echo "Please follow the prompts for setting up the CICD pipeline"
 echo "Enter which environment you're developing on (windows, mac, linux, unix): "
-read -s dev_env
+read dev_env
 env_setup
 config_secrets
 

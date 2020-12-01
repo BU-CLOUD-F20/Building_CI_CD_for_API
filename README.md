@@ -9,30 +9,29 @@
 
 ## 1. Vision and Goals of the Project:
 
-We are working on a CI/CD pipeline that can be used for API development. We will use an example of a URL shortener API as a demonstration of our pipeline, though our solution will be platform agnostic. The pipeline will allow incremental changes to be developed, tested, verified, and deployed in an automated manner. Following core DevOps principles will allow the project team to strive for continuous improvement with minimal downtime, and to respond quickly to customer feedback and insights.
+We are working on a CI/CD pipeline that can be used for API development. We will use an example of a URL shortener API as a demonstration of our pipeline, though pipeline will work with most Python APIs. The pipeline will allow incremental changes to be developed, tested, verified, and deployed in an automated manner. Following core DevOps principles will allow the project team to strive for continuous improvement with minimal downtime, and to respond quickly to customer feedback and insights.
 
 Important goals include:
 
 * (Almost) Fully automated setup and deployment. The entire process for a developer to make changes to the codebase should require as little manual interaction as possible. Same with someone who is looking to use our repo as a GitHub template for their own project.
 * The URL shortener API will be served on an attractive interface
-* Unit tests can be written and integrated into the pipeline
+* Unit tests can be written and integrated into the pipeline on GitHub
+* Integration tests will be performed on OpenShift
 * From the first deployment, the API and pipeline will have high availability
 
 
 ## 2. Users/Personas of the Project:
+Andy is a user of the CI/CD pipeline with an existing project. Andy already has a simple Flask webapp on a GitHub repo. Andy has written some unit tests and wants to deploy his app onto Openshift. He reads the documentation for our CI/CD pipeline, grabs the CLI tool from npm, and uses our CLI tool to quickly setup GitHub Actions workflows. Now, whenever Andy makes commits to this repo, the code will go through unit tests and integration tests. If the tests have passed, the code will be deployed on OpenShift, serving users of his webapp with the latest version.
 
-An API user is Andy, a web developer working on his SaaS that allows users to write notes in the cloud. Andy wants to let his users be able to share links to specific notes or notebooks but the generated link system he currently has is ugly, long, and hard to remember (see notion.so). Andy reads our API documentation and forks our open source project to generate short, two word URLs for his service with his domain name. Andy’s version of the API is hosted on his own cloud provider that supports Docker images. Andy can contribute features and bug fixes back to our open source project, thanks to our CI/CD pipeline.
-
-A user of the CI/CD pipeline is Brian, a participant in a hackathon. Brian is working on a prototype of his team’s web application. To save time, Brian uses our GitHub Template Repository as a starting point for his project. He can add on additional functionality by choosing Actions from the GitHub marketplace. Although our project is set-up to deploy on MOC OpenShift, Brian can easily change his deployment to AWS or Heroku.
-
+Brian is a user starting from scratch. Brian can grab our CLI tool from npm. The tool will guide him through the process of setting up and deploying his webapp. As he develops, he can add tests and the tool can regenerate the workflow yaml files as needed. This allows Brian to perform test driven development on the cloud as early as possible.
 
 ## 3. Scope and Features of the Project:
 
 **In-Scope Features**
 
 * Allow adding and running of unit tests in CI
-* Easy installation and configuration of the pipeline, can be customized to different projects and hosts
-* Extensible in functionality, either by using Actions from GitHub marketplace or writing own Actions
+* Easy installation and configuration of the pipeline, can be customized to different projects
+* Extensible in functionality, by allowing users to embed unit tests or API integration tests
 * The API being developed should have high availability, a failed test should not bring down the service
 * Every commit or pull-request by a developer will go through CI/CD pipeline, must pass all tests before being deployed
 * Failed builds and tests will alert developers
@@ -43,26 +42,31 @@ A user of the CI/CD pipeline is Brian, a participant in a hackathon. Brian is wo
 * Backwards compatibility with Jenkins
 * Dashboard interface for developers to see problems and status of CI/CD pipeline
 * The URL shortener API is a demonstration, so extensive development or design of the shortener API is not in scope
+* Can be customized to host other than OpenShift, like Kubernetes
 
 
 ## 4. Solution Concept
 
 The system components of the architectural design is as follows:
-* Python Flask backend for providing REST APIs that allow frontend to consume
-* React front end for service’s user interface
-* Nginx load balancer, among client-application, application-database, application-cache
-* GitHub Actions for CI/CD pipeline
-* Ubuntu docker image for development environment
-* OpenShift on MOC for hosting
-* Build Server, builds docker images of Flask app from Dockerfile
-* Test server, for running smoke, unit, integration tests
+* GitHub Actions for unit testing and deployment
+* CLI tool for setting up GitHub Actions workflow yaml files and viewing logs
+* OpenShit Actions to deploy from GitHub
+* Docker for containerizing web app
+* OpenShift on MOC for hosting production app and testing environment (integration, load/stress)
+
+Majority of our code will be in the CLI tool for generating GitHub Action workflow files.  
+Development of the CLI tool is being done at https://github.com/yanchen01/cicd-cli
 
 
 <img src="assets/diagram.png">
 
-In the diagram, when developers make any changes in the code and the commits are pushed to GitHub, GitHub Actions triggers the CI workflow. It builds the project with the changed contents, runs integration and unit tests, and then provides results of the tests in the pull request. If the changes introduce errors, the developer can go back to debugging. If there are no errors from the tests, the change is ready to be reviewed by another team member. When the team member approves the changes, from here it is the CD workflow. The changes get reflected to the staging server, then if there are no problems, the changes will be deployed to the production server hosted on MOC using OpenShift. This server is running Nginx, load balancing the server’s resource availability and efficiency.
+In the diagram, when developers make any changes in the code and the commits are pushed to GitHub, GitHub Actions triggers the CI workflow. It builds the project with the changed contents, formats code, runs unit tests with pytest, and then provides results of the tests in the pull request.  
 
-We will be developing unit tests alongside the development of the URL shortener. These tests will allow us to verify the proper function of various system components, such as backend and frontend.
+If the changes introduce errors, the developer can go back to debugging. If there are no errors from the tests, it is deployed to OpenShift for integration testing. Once it passes integration testing, check marks will appear on the GitHub Actions page.
+
+The change is ready to be reviewed by another team member as a pull request. When the team member approves the changes, the code will be deployed to the production server hosted on MOC using OpenShift.
+
+We will be developing unit tests and end-to-end API integration tests alongside the development of the URL shortener. These tests will allow us to verify the proper function of various system components, such as backend and frontend.
 
 Design decisions for the architecture were made with usability and ease of development in mind. We compared the features of GitHub Actions to Jenkins and found the following:
 
@@ -134,6 +138,7 @@ Release 3 (Deadline: Oct. 25, Demo: Oct. 29)
   - Implement smoke, unit and integration testing
 
 Release 4 (Deadline: Nov. 8, Demo: Nov. 12)
+[Sprint 4 Demo Slides](https://docs.google.com/presentation/d/1DTBL3iiL89ZFYMjmdpY9vEH-vXr6Yf1MTqE4xwlGMd0/edit?usp=sharing)
 - Attempt to add Out-of-Scope features + integration testing
 - CI/CD pipeline
   - Explore the extensibility and application of our pipeline to other projects
