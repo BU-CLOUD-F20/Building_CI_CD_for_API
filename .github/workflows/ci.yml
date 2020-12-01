@@ -72,4 +72,3 @@ jobs:
         run: |
             oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
             oc delete all --selector app=${{ github.head_ref }}
-#test change
