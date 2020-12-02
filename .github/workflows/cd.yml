@@ -21,8 +21,6 @@ jobs:
 
           repoName=`echo ${{ github.event.repository.name }} | sed -e 's/[^a-z0-9]//g'`
 
-          oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{
-          secrets.OC_SERVER_URL }}
+          oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
           
-          oc start-build $repoName --follow || oc new-app
-          https://www.github.com/${{ github.repository }} --name=$repoName
+          oc start-build $repoName --follow || oc new-app https://www.github.com/${{ github.repository }} --name=$repoName
