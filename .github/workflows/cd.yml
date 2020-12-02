@@ -17,5 +17,7 @@ jobs:
           version: '3.11.230'
       - name: Executing OC Commands
         run: |
+            repoName = ${{ github.event.repository.name }}
+            bcName = $repoName | sed 's/[^a-zA-Z0-9]//g'
             oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
-            oc start-build ${{ github.event.repository.name | sed 's/[^a-zA-Z0-9]//g'}} --follow || oc new-app https://www.github.com/${{ github.repository }} --name=${{ github.event.repository.name | sed 's/[^a-zA-Z0-9]//g'}}
+            oc start-build $bcName --follow || oc new-app https://www.github.com/${{ github.repository }} --name=$bcName
