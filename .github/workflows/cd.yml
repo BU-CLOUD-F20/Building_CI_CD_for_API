@@ -18,4 +18,4 @@ jobs:
       - name: Executing OC Commands
         run: |
             oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
-            oc start-build production --follow || oc new-app https://www.github.com/${{ github.repository }} --name=production
+            oc start-build ${{ github.event.repository.name | sed 's/[^a-zA-Z0-9]//g'}} --follow || oc new-app https://www.github.com/${{ github.repository }} --name=${{ github.event.repository.name | sed 's/[^a-zA-Z0-9]//g'}}
