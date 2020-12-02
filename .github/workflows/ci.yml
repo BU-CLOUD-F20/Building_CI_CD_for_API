@@ -54,9 +54,14 @@ jobs:
         with:
           version: '3.11.230'
       - name: Executing OC Commands
-        run: |
+        run: >
+          #!/bin/bash
+
+          branchName = `echo ${{ github.head_ref }} | sed -e 's/[^a-z0-9]//g'`
+
           oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
-          oc new-app https://www.github.com/${{ github.repository }}#${{ github.head_ref }} --name=${{ github.head_ref }}
+
+          oc new-app https://www.github.com/${{ github.repository }}#${{ github.head_ref }} --name=$branchName
 
   cleaningOC:
     needs: deployForIT
@@ -69,6 +74,7 @@ jobs:
         with:
           version: '3.11.230'
       - name: Executing OC Commands
-        run: |
+        run: >
             oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
-            oc delete all --selector app=${{ github.head_ref }}
+
+            oc delete all --selector app=$branchName
