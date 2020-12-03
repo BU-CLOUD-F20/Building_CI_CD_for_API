@@ -8,7 +8,7 @@
 
 ====
 
-This project is about the design and development of a CI/CD pipeline setup tool that can be used for web API development. This repository contains the example application of a URL shorterner that we used to test the pipeline.
+This project is about the design and development of a CI/CD pipeline setup tool that can be used for web API development and deployment on OpenShift. This repository contains the example application of a URL shorterner that we used to test the pipeline.
 
 # Requirements
 
