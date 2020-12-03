@@ -58,7 +58,7 @@ Majority of our code will be in the CLI tool for generating GitHub Action workfl
 Development of the CLI tool is being done at https://github.com/yanchen01/cicd-cli
 
 
-<img src="assets/diagram.png">
+<img src="/assets/diagram.png">
 
 In the diagram, when developers make any changes in the code and the commits are pushed to GitHub, GitHub Actions triggers the CI workflow. It builds the project with the changed contents, formats code, runs unit tests with pytest, and then provides results of the tests in the pull request.  
 
