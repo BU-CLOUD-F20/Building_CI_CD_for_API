@@ -76,4 +76,4 @@ This project is about the design and development of a CI/CD pipeline setup tool 
 
 * **[Project Description](/Documents/project_description.md)** The original proposal by the mentors
 * **[Proposal](/Documents/proposal.md)** Our project proposal with preliminary architecture overviews
-* **[Competitor Research](/Document/research.md)**
+* **[Competitor Research](/Documents/research.md)**
