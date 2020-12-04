@@ -77,7 +77,9 @@ jobs:
         run: >
           #!/bin/bash
 
-          branchName=`(echo ${{ github.head_ref }} | tr '[:upper:]' '[:lower:]') | sed -e 's/[^a-z0-9]//g'`\noc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
+          branchName=`(echo ${{ github.head_ref }} | tr '[:upper:]' '[:lower:]') | sed -e 's/[^a-z0-9]//g'`
+          
+          oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
 
           oc delete all --selector app=$branchName
 #test change
