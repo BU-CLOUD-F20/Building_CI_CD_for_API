@@ -61,7 +61,7 @@ jobs:
 
           oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
 
-          oc new-app https://www.github.com/${{ github.repository }}#${{ github.head_ref }} --name=$branchName
+          oc start-build $branchName --follow || oc new-app https://www.github.com/${{ github.repository }}#${{ github.head_ref }} --name=$branchName
 
   cleaningOC:
     needs: deployForIT
@@ -75,7 +75,9 @@ jobs:
           version: '3.11.230'
       - name: Executing OC Commands
         run: >
-            oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
+          #!/bin/bash
 
-            oc delete all --selector app=$branchName
+          branchName=`(echo ${{ github.head_ref }} | tr '[:upper:]' '[:lower:]') | sed -e 's/[^a-z0-9]//g'`\noc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
+
+          oc delete all --selector app=$branchName
 #test change
