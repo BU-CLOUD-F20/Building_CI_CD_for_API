@@ -19,7 +19,7 @@ jobs:
         run: >
           #!/bin/bash
 
-          repoName=`echo ${{ github.event.repository.name }} | sed -e 's/[^a-z0-9]//g'`
+          repoName=`(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]') | sed -e 's/[^a-z0-9]//g'`
 
           oc login --token=${{ secrets.OC_API_TOKEN }} --server=${{ secrets.OC_SERVER_URL }}
           
