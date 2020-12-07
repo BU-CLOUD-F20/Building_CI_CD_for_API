@@ -36,7 +36,7 @@ This project is about the design and development of a CI/CD pipeline setup tool 
 ## Usage
 
 1. `cicd setup`
-	* Setup necessary workflow files: 
+	* Sets up necessary workflow files (Refer to Workflow Files section below)
 2. `cicd config`
 	* Configure repo name, access tokens, deployment targets
 3. Commit and push the workflow files to your repo
@@ -63,6 +63,46 @@ This project is about the design and development of a CI/CD pipeline setup tool 
     2. docker run -it -p 5000:5000 flaskapp
     3. Optional: docker run -it -d -p 5000:5000 flaskapp (automatically runs in background)
 5.  Flask app runs on http://localhost:5000/
+
+# Workflow Files (.github/workflows/)
+
+Any of these workflows files/jobs can be manipulated for personalization. Check out more about editing the workflow files here:
+
+https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions
+
+The GitHub actions marketplace has bunch of third party GitHub actions you can add to your workflows:
+
+https://github.com/marketplace?type=actions
+
+
+
+1. ci.yml (Triggers on any pull_request)
+
+   1. Formatting (User choice of autoyapf PEP-8 style or Black style)
+
+      1. Changes are automatically pushed to the current branch
+
+   2. Unit Test (PyTest)
+
+      1. Fails if test coverage is under 90%
+
+   3. Test Deploy to OpenShift
+
+      1. Creates a build config of the name of the current branch
+
+         ​	Any necessary integration tests such as Selenium on the OpenShift pipeline should occur here
+
+   4. Cleaning up OpenShift
+
+      1. Deletes any config, builds and pods related to the test deploy in step 3
+
+   
+
+2. cd.yml (Triggers on push to the master branch)
+
+   1. Deploying Production to OpenShift
+      1. If a build with the name of the repository exists, roll out the changes to that build
+      2. Else, create a build config with the name of the repository and deploy the master branch to OpenShift
 
 # Videos and Slides
 
