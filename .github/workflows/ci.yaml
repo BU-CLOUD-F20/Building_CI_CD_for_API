@@ -76,12 +76,12 @@ jobs:
           
   wait:
     needs: deployForIT
-    name: Wait One Day before Deleting Test Deployment
+    name: Wait One Hour before Deleting Test Deployment
     runs-on: ubuntu-latest
     steps:
       - uses: jakejarvis/wait-action@master
         with:
-          time: '1d'
+          time: '1h'
 
   cleaningOC:
     needs: wait

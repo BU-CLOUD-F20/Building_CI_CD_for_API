@@ -89,6 +89,9 @@ https://github.com/marketplace?type=actions
 
          ​	Any necessary integration tests such as Selenium on the OpenShift pipeline should occur here
 
+   4. Wait for One Hour for Integration Tests on OpenShift
+      1. Pauses for one hour before deleting the testing environment. Run tests on OpenShift during this action
+
    4. Cleaning up OpenShift
       1. Deletes any config, builds and pods related to the test deploy in step 3
 
