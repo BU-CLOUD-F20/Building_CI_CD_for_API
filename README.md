@@ -98,6 +98,7 @@ https://github.com/marketplace?type=actions
 
    
 
+
 2. cd.yml (Triggers on push to the master branch)
 
    1. Deploying Production to OpenShift
