@@ -30,6 +30,7 @@ jobs:
           git commit -am "Automated autoyapf fixes"
 
           git push
+
   pyTest:
     needs: formatting
     name: Unit Test - PyTest
@@ -48,6 +49,7 @@ jobs:
         run: >
           python3 -m pytest -rsA tests/ -vv --cov-fail-under=90 -W
           ignore::DeprecationWarning
+
   deployForIT:
     needs: pyTest
     name: Deploying Branch to OpenShift for Testing
@@ -71,8 +73,18 @@ jobs:
           oc start-build $branchName --follow || oc new-app
           https://www.github.com/${{ github.repository }}#${{ github.head_ref }}
           --name=$branchName
-  cleaningOC:
+          
+  wait:
     needs: deployForIT
+    name: Wait One Day before Deleting Test Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - uses: jakejarvis/wait-action@master
+        with:
+          time: '1d'
+
+  cleaningOC:
+    needs: wait
     name: Cleaning OpenShift Env
     runs-on: ubuntu-latest
     steps:
