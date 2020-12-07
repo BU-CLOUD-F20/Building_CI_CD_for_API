@@ -79,31 +79,25 @@ https://github.com/marketplace?type=actions
 1. ci.yml (Triggers on any pull_request)
 
    1. Formatting (User choice of autoyapf PEP-8 style or Black style)
-
       1. Changes are automatically pushed to the current branch
 
    2. Unit Test (PyTest)
-
       1. Fails if test coverage is under 90%
 
    3. Test Deploy to OpenShift
-
       1. Creates a build config of the name of the current branch
 
          ​	Any necessary integration tests such as Selenium on the OpenShift pipeline should occur here
 
    4. Cleaning up OpenShift
-
       1. Deletes any config, builds and pods related to the test deploy in step 3
 
-   
 
+   2. cd.yml (Triggers on push to the master branch)
 
-2. cd.yml (Triggers on push to the master branch)
-
-   1. Deploying Production to OpenShift
-      1. If a build with the name of the repository exists, roll out the changes to that build
-      2. Else, create a build config with the name of the repository and deploy the master branch to OpenShift
+      1. Deploying Production to OpenShift
+         1. If a build with the name of the repository exists, roll out the changes to that build
+         2. Else, create a build config with the name of the repository and deploy the master branch to OpenShift
 
 # Videos and Slides
 
