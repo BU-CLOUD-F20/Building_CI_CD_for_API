@@ -47,7 +47,7 @@ This project is about the design and development of a CI/CD pipeline setup tool 
 8. Manually approve the pull request
 9. Pipeline will deploy to OpenShift if all tests passed
 
-# Deploy the URL Shortener Locally
+# Run the URL Shortener App Locally
 
 1. Install virtual env on your local machine
     1. Windows User: python -m venv env
