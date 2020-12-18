@@ -8,7 +8,7 @@
 
 ====
 
-This project is about the design and development of a CI/CD pipeline setup tool that can be used for web API development and deployment on OpenShift. This repository contains the example application of a URL shorterner that we used to test the pipeline. The pipeline setup tool is at https://github.com/yanchen01/cicd-cli
+This project is about the design and development of a CI/CD pipeline setup tool that can be used for web API development and deployment on OpenShift. This repository contains the example application of a URL shorterner that we used to test the pipeline. The pipeline setup tool is at https://github.com/yanchen01/cicd-cli.
 
 # Requirements
 
@@ -120,3 +120,4 @@ https://github.com/marketplace?type=actions
 * **[Project Description](/Documents/project_description.md)** The original proposal by the mentors
 * **[Proposal](/Documents/proposal.md)** Our project proposal with preliminary architecture overviews
 * **[Competitor Research](/Documents/research.md)**
+* **[Final Video](https://www.youtube.com/watch?v=Lxj5ubTTJZQ)**
