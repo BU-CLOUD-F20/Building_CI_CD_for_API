@@ -108,6 +108,7 @@ https://github.com/marketplace?type=actions
 # Videos and Slides
 
 * [Final Project Video](https://drive.google.com/file/d/156mp9SgMFp6GuxUjJB9t4ZjiQ9Me95_x/view?usp=sharing) and [Slides](https://docs.google.com/presentation/d/10TDFWE4x0daBH89_soXN2L1T9xW4o7x9zHawPGI-0jg/edit?usp=sharing)
+* [Project Poster](https://docs.google.com/presentation/d/1I2vLbIJFdigatx3YsvwHhidczOAy0O72gUNoas7e8LE/edit?usp=sharing)
 * [Sprint 5 Video](https://drive.google.com/file/d/1b5u_TCzTKjQPCLFwBsIUrurld_uDhqV0/view?usp=sharing) and [Slides](https://docs.google.com/presentation/d/1W0ZxpGOTdOr8Iw1tBM92GzvbQd87qZupM1jeMjfjScg/edit?usp=sharing)
 * [Sprint 4 Slides](https://docs.google.com/presentation/d/1DTBL3iiL89ZFYMjmdpY9vEH-vXr6Yf1MTqE4xwlGMd0/edit?usp=sharing)
 * [Sprint 3 Slides](https://docs.google.com/presentation/d/1EOoE3-8W3tEjHZigkjZXEqBkYvAc8JTZLaWJyUksesQ/edit?usp=sharing)
