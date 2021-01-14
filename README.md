@@ -2,7 +2,7 @@
 
 ###### EC528 Fall 2020
 
-###### Team Members: Panat Taranat, Yan Chen, Mella Liang, Peter Wang, Kaito Yamagishi
+###### Team Members: Panat Taranat, Yan Chen, Peter Wang, Kaito Yamagishi
 ###### Mentors: James Colley, Surya Jayanthi, Ata Turk
 
 
