@@ -52,9 +52,8 @@ class LinkAPI(Resource):
         #     "original_link": "https://www.youtube.com/",
         #     "expire_at" : "2020-09/-30"
         # }
+
         # find way to validate url
-        # original_link = json_data['original_link']
-        # checking URL validation
         try:
             if "http://" not in original_link and "https://" not in original_link:
                 original_link = "http://" + original_link
